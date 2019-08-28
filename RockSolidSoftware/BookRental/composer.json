@@ -1,0 +1,19 @@
+{
+  "name": "RockSolidSoftware/BookRental",
+  "description": "Bool Rental - Strix Test component for Magento 2",
+  "version": "1.0.0",
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "type": "magento2-module",
+  "authors": [
+    {
+      "name": "Mariusz Jucha",
+      "email": "kontakt@rocksolidsoftware.pl"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "RockSolidSoftware\\BookRental\\": "" },
+    "files": [ "registration.php" ]
+  }
+}

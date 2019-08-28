@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <book_rental>
+            <book_rental_general>
+                <book_rental_max_books>3</book_rental_max_books>
+            </book_rental_general>
+        </book_rental>
+    </default>
+</config>

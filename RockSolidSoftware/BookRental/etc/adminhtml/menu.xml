@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="RockSolidSoftware_BookRental::menu"
+             title="Book Rental"
+             module="RockSolidSoftware_BookRental"
+             sortOrder="50"
+             resource="RockSolidSoftware_BookRental::admin"
+        />
+        <add id="RockSolidSoftware_BookRental::books"
+             title="Books List"
+             module="RockSolidSoftware_BookRental"
+             sortOrder="1"
+             parent="RockSolidSoftware_BookRental::menu"
+             action="book_rental_list/index/index"
+             resource="RockSolidSoftware_BookRental::configuration"
+        />
+        <add id="RockSolidSoftware_BookRental::configuration"
+             title="Configuration"
+             module="RockSolidSoftware_BookRental"
+             sortOrder="2"
+             parent="RockSolidSoftware_BookRental::menu"
+             action="adminhtml/system_config/edit/section/book_rental"
+             resource="RockSolidSoftware_BookRental::configuration"
+        />
+    </menu>
+</config>
