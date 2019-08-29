@@ -13,7 +13,7 @@
              sortOrder="1"
              parent="RockSolidSoftware_BookRental::menu"
              action="book_rental_list/index/index"
-             resource="RockSolidSoftware_BookRental::configuration"
+             resource="RockSolidSoftware_BookRental::list"
         />
         <add id="RockSolidSoftware_BookRental::configuration"
              title="Configuration"

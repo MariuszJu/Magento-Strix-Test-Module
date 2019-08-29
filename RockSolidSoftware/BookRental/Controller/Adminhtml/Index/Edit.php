@@ -2,8 +2,9 @@
 
 namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 
-use Magento\Framework\App\Action\Action;
+use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\Context;
+use RockSolidSoftware\BookRental\Helper\Acl;
 use RockSolidSoftware\BookRental\Processor\BookProcessor;
 use RockSolidSoftware\BookRental\Processor\BookProcessorFactory;
 
@@ -43,13 +44,23 @@ class Edit extends Action
                     $e instanceof \RuntimeException ? $e->getMessage() : 'Unexpected error occured'
                 );
 
-                return $this->_redirect('book_rental_list/index/add');
+                return $this->_redirect('*/*/edit/id/', [
+                    'id' => $post['id'],
+                ]);
             }
 
             $this->messageManager->addSuccessMessage('Book has been created');
 
-            return $this->_redirect('book_rental_list/index/index');
+            return $this->_redirect('*/*/index');
         }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed(): bool
+    {
+        return $this->_authorization->isAllowed(Acl::ACL_BOOK_EDIT);
     }
 
 }

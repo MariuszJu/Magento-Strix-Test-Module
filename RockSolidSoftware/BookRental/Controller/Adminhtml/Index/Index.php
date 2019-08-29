@@ -2,8 +2,10 @@
 
 namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 
-use Magento\Framework\App\Action\Action;
+//use Magento\Framework\App\Action\Action;
+use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\Context;
+use RockSolidSoftware\BookRental\Helper\Acl;
 use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
@@ -34,6 +36,14 @@ class Index extends Action
         $resultPage->getConfig()->getTitle()->prepend('Books list');
         
         return $resultPage;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed(): bool
+    {
+        return $this->_authorization->isAllowed(Acl::ACL_BOOKS_LIST);
     }
 
 }

@@ -2,8 +2,9 @@
 
 namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 
-use Magento\Framework\App\Action\Action;
+use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\Context;
+use RockSolidSoftware\BookRental\Helper\Acl;
 use RockSolidSoftware\BookRental\Processor\BookProcessor;
 use RockSolidSoftware\BookRental\Processor\BookProcessorFactory;
 
@@ -48,7 +49,15 @@ class MassDelete extends Action
             $this->messageManager->addWarningMessage('There was some issues during deleting selected items');
         }
 
-        return $this->_redirect('book_rental_list/index/index');
+        return $this->_redirect('*/*/index');
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed(): bool
+    {
+        return $this->_authorization->isAllowed(Acl::ACL_BOOK_DELETE);
     }
 
 }

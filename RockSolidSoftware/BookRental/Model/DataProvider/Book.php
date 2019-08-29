@@ -2,31 +2,40 @@
 
 namespace RockSolidSoftware\BookRental\Model\DataProvider;
 
+use Magento\Framework\App\RequestInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
-use RockSolidSoftware\BookRental\Model\Book as BookModel;
+use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
 use RockSolidSoftware\BookRental\Model\ResourceModel\Book\Collection;
 use RockSolidSoftware\BookRental\Model\ResourceModel\Book\CollectionFactory;
 
 class Book extends AbstractDataProvider
 {
 
-    /** @var Collection */
-    protected $collection;
+    /** @var BookRepositoryInterface */
+    protected $repository;
+
+    /** @var RequestInterface */
+    protected $request;
 
     /**
      * Book constructor
      *
-     * @param                   $name
-     * @param                   $primaryFieldName
-     * @param                   $requestFieldName
-     * @param CollectionFactory $contactCollectionFactory
-     * @param array             $meta
-     * @param array             $data
+     * @param                         $name
+     * @param                         $primaryFieldName
+     * @param                         $requestFieldName
+     * @param CollectionFactory       $collectionFactory
+     * @param BookRepositoryInterface $repository
+     * @param array                   $meta
+     * @param array                   $data
+     * @param RequestInterface        $request
      */
     public function __construct($name, $primaryFieldName, $requestFieldName,
-                                CollectionFactory $contactCollectionFactory, array $meta = [], array $data = [])
+                                CollectionFactory $collectionFactory, BookRepositoryInterface $repository,
+                                array $meta = [], array $data = [], RequestInterface $request)
     {
-        $this->collection = $contactCollectionFactory->create();
+        $this->request = $request;
+        $this->repository = $repository;
+        $this->collection = $collectionFactory->create();
 
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
@@ -36,19 +45,27 @@ class Book extends AbstractDataProvider
      */
     public function getData()
     {
-        if ($data = ($this->loadedData ?? [])) {
+        $data = [];
+
+        $id = $this->request->getParam('id');
+
+        if (!empty($post = $this->request->getPostValue())) {
+            $data[$id]['book'] = $post['book'] ?? [];
+
             return $data;
         }
 
-        $items = $this->collection->getItems();
-        $this->loadedData = [];
+        if ($id = $this->request->getParam('id')) {
+            try {
+                $data[$id]['book'] = $this->repository
+                    ->getById($id)
+                    ->getData();
+            } catch (\Throwable $e) {
 
-        /** @var BookModel $book */
-        foreach ($items as $book) {
-            $this->loadedData[$book->getId()]['book'] = $book->getData();
+            }
         }
 
-        return $this->loadedData;
+        return $data;
 
     }
 
