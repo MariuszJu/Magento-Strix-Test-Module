@@ -49,7 +49,7 @@ class Edit extends Action
                 ]);
             }
 
-            $this->messageManager->addSuccessMessage('Book has been created');
+            $this->messageManager->addSuccessMessage('Book has been saved');
 
             return $this->_redirect('*/*/index');
         }

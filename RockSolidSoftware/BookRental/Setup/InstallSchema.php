@@ -33,7 +33,7 @@ class InstallSchema implements InstallSchemaInterface
                 ->addColumn('title', Table::TYPE_TEXT, 255, [
                     'nullable' => false,
                 ])
-                ->addColumn('author', Table::TYPE_TEXT, 10, [
+                ->addColumn('author', Table::TYPE_TEXT, 255, [
                     'nullable' => true,
                 ])
                 ->addColumn('created_at', Table::TYPE_DATETIME, 255, [
