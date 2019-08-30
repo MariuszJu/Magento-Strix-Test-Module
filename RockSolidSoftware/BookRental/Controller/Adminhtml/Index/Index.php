@@ -4,7 +4,8 @@ namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 
 //use Magento\Framework\App\Action\Action;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\Context;
+//use Magento\Framework\App\Action\Context;
+use Magento\Backend\App\Action\Context;
 use RockSolidSoftware\BookRental\Helper\Acl;
 use Magento\Framework\View\Result\PageFactory;
 
@@ -33,7 +34,7 @@ class Index extends Action
     public function execute()
     {
         $resultPage = $this->pageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend('Books list');
+        $resultPage->getConfig()->getTitle()->prepend(__('Books List'));
         
         return $resultPage;
     }

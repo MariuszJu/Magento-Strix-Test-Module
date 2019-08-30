@@ -6,6 +6,7 @@
              module="RockSolidSoftware_BookRental"
              sortOrder="50"
              resource="RockSolidSoftware_BookRental::admin"
+             translate="true"
         />
         <add id="RockSolidSoftware_BookRental::books"
              title="Books List"
@@ -14,6 +15,7 @@
              parent="RockSolidSoftware_BookRental::menu"
              action="book_rental_list/index/index"
              resource="RockSolidSoftware_BookRental::list"
+             translate="true"
         />
         <add id="RockSolidSoftware_BookRental::configuration"
              title="Configuration"
@@ -22,6 +24,7 @@
              parent="RockSolidSoftware_BookRental::menu"
              action="adminhtml/system_config/edit/section/book_rental"
              resource="RockSolidSoftware_BookRental::configuration"
+             translate="true"
         />
     </menu>
 </config>

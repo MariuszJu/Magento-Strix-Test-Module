@@ -47,7 +47,7 @@ class BookActions extends Column
                         'book_rental_list/index/edit',
                         ['id' => $item['id'], 'store' => $storeId]
                     ),
-                    'label'  => 'Edit',
+                    'label'  => __('Edit'),
                     'hidden' => false,
                 ];
             }

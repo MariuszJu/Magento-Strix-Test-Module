@@ -13,10 +13,14 @@ class SaveButton extends BaseButton implements ButtonProviderInterface
     public function getButtonData(): array
     {
         return [
-            'label'          => 'Save',
+            'label'          => __('Save'),
             'class'          => 'save primary',
             'data_attribute' => [
-                'mage-init' => ['button' => ['event' => 'save']],
+                'mage-init' => [
+                    'button' => [
+                        'event' => 'save'
+                    ],
+                ],
                 'form-role' => 'save',
             ],
             'sort_order'     => 90,

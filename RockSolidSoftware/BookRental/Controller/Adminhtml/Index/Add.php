@@ -3,7 +3,7 @@
 namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\Context;
+use Magento\Backend\App\Action\Context;
 use RockSolidSoftware\BookRental\Helper\Acl;
 use RockSolidSoftware\BookRental\Processor\BookProcessor;
 use RockSolidSoftware\BookRental\Processor\BookProcessorFactory;

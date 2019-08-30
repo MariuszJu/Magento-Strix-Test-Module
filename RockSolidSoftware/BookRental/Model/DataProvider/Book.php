@@ -20,16 +20,16 @@ class Book extends AbstractDataProvider
     /**
      * Book constructor
      *
-     * @param                         $name
-     * @param                         $primaryFieldName
-     * @param                         $requestFieldName
+     * @param string                  $name
+     * @param string                  $primaryFieldName
+     * @param string                  $requestFieldName
      * @param CollectionFactory       $collectionFactory
      * @param BookRepositoryInterface $repository
      * @param array                   $meta
      * @param array                   $data
      * @param RequestInterface        $request
      */
-    public function __construct($name, $primaryFieldName, $requestFieldName,
+    public function __construct(string $name, string $primaryFieldName, string $requestFieldName,
                                 CollectionFactory $collectionFactory, BookRepositoryInterface $repository,
                                 array $meta = [], array $data = [], RequestInterface $request)
     {
