@@ -2,6 +2,7 @@
 
 namespace RockSolidSoftware\BookRental\Model;
 
+use Magento\Framework\DataObject;
 use RockSolidSoftware\BookRental\Model\BookFactory;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
@@ -13,7 +14,7 @@ use RockSolidSoftware\BookRental\Model\ResourceModel\BookFactory as BookResource
 class BookRepository implements BookRepositoryInterface
 {
 
-    /** @var Book */
+    /** @var BookInterface */
     private $book;
 
     /** @var BookResource */
@@ -25,13 +26,13 @@ class BookRepository implements BookRepositoryInterface
     /**
      * BookRepository constructor
      *
-     * @param BookFactory         $bookFactory
+     * @param BookInterface       $book
      * @param BookResourceFactory $bookResourceFactory
      * @param CollectionFactory   $collectionFactory
      */
-    public function __construct(BookFactory $bookFactory, BookResourceFactory $bookResourceFactory, CollectionFactory $collectionFactory)
+    public function __construct(BookInterface $book, BookResourceFactory $bookResourceFactory, CollectionFactory $collectionFactory)
     {
-        $this->book = $bookFactory->create();
+        $this->book = $book;
         $this->resource = $bookResourceFactory->create();
         $this->collection = $collectionFactory->create();
     }
@@ -43,14 +44,13 @@ class BookRepository implements BookRepositoryInterface
      */
     public function save($entity): int
     {
-        if ($entity instanceof BookInterface) {
-            return $entity->save()->getId();
-        } else {
+        if (!$entity instanceof BookInterface) {
             $entity = (clone $this->book)->setData($entity);
-            $this->resource->save($entity);
-
-            return $entity->getId();
         }
+
+        $this->resource->save($entity);
+
+        return $entity->getId();
     }
 
     /**
@@ -68,6 +68,40 @@ class BookRepository implements BookRepositoryInterface
         }
 
         return $entity;
+    }
+
+    /**
+     * @return DataObject[]
+     */
+    public function all(): array
+    {
+        return $this->collection->getItems();
+    }
+
+    /**
+     * @param int        $page
+     * @param int        $perPage
+     * @param array|null $order
+     * @return DataObject[]
+     */
+    public function getPage(int $page, int $perPage = 10, array $order = null): array
+    {
+        $collection = $this->collection
+            ->setPageSize($perPage);
+
+        is_array($order) && !empty($order) && $collection->setOrder(key($order), reset($order));
+
+        $collection->setCurPage($page);
+
+        return $collection->getItems();
+    }
+
+    /**
+     * @return int
+     */
+    public function getEntitiesCount(): int
+    {
+        return $this->collection->getSize();
     }
 
     /**

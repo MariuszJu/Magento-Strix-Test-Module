@@ -36,4 +36,22 @@ interface BookRepositoryInterface
      */
     public function last(): ?BookInterface;
 
+    /**
+     * @return mixed
+     */
+    public function all();
+
+    /**
+     * @param int        $page
+     * @param int        $perPage
+     * @param array|null $order
+     * @return mixed
+     */
+    public function getPage(int $page, int $perPage = 10, array $order = null);
+
+    /**
+     * @return int
+     */
+    public function getEntitiesCount(): int;
+
 }

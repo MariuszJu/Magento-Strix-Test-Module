@@ -13,7 +13,7 @@ class BackButton extends BaseButton implements ButtonProviderInterface
     public function getButtonData(): array
     {
         return [
-            'label'      => __('Go back'),
+            'label'      => __('Go Back'),
             'on_click'   => sprintf("location.href = '%s';", $this->getBackUrl()),
             'class'      => 'back',
             'sort_order' => 10,

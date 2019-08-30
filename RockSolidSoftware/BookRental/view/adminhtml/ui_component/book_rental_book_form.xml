@@ -35,7 +35,7 @@
     <fieldset name="book">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Book data</item>
+                <item name="label" xsi:type="string" translate="true">Book Data</item>
             </item>
         </argument>
 

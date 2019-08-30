@@ -25,4 +25,8 @@
     <preference for="RockSolidSoftware\BookRental\API\Data\BookInterface"
                 type="RockSolidSoftware\BookRental\Model\Book"
     />
+
+    <preference for="RockSolidSoftware\BookRental\API\BooksServiceInterface"
+                type="RockSolidSoftware\BookRental\Service\BooksService"
+    />
 </config>
