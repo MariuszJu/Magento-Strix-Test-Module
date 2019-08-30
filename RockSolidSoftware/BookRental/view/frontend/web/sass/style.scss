@@ -1,0 +1,13 @@
+@import 'mixins';
+
+#book-rental {
+    width: 90%;
+    margin: 0 auto;
+
+    h2.light {
+        font-weight: 300;
+        span {
+            font-weight: 500;
+        }
+    }
+}

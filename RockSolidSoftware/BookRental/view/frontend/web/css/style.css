@@ -1,0 +1,37 @@
+.slow-animate {
+  -webkit-transition: all 0.7s ease-in-out;
+  -moz-transition: all 0.7s ease-in-out;
+  -ms-transition: all 0.7s ease-in-out;
+  -o-transition: all 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out; }
+
+.slower-animate {
+  -webkit-transition: all 0.55s ease-in-out;
+  -moz-transition: all 0.55s ease-in-out;
+  -ms-transition: all 0.55s ease-in-out;
+  -o-transition: all 0.55s ease-in-out;
+  transition: all 0.55s ease-in-out; }
+
+.animate {
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out; }
+
+.faster-animate {
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.55s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out; }
+
+#book-rental {
+  width: 90%;
+  margin: 0 auto; }
+  #book-rental h2.light {
+    font-weight: 300; }
+    #book-rental h2.light span {
+      font-weight: 500; }
+
+/*# sourceMappingURL=style.css.map */
