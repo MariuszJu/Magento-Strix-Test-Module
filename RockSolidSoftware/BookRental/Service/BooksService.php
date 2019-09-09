@@ -34,29 +34,11 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
-     * @param int        $page
-     * @param int        $perPage
-     * @param array|null $order
-     * @return array
+     * @return int
      */
-    public function getBooksPagination(int $page, int $perPage, array $order = null): array
+    public function getBooksCount(): int
     {
-        $count = $this->bookRepository->getEntitiesCount();
-
-        $pages = ceil($count / $perPage);
-
-        if ($page > $pages) {
-            $page = $pages;
-        }
-
-        $books = $this->getBooks($page, $perPage, $order);
-
-        return [
-            'page'    => $page,
-            'perPage' => $perPage,
-            'pages'   => $pages,
-            'books'   => $books,
-        ];
+        return $this->bookRepository->getEntitiesCount();
     }
 
 }

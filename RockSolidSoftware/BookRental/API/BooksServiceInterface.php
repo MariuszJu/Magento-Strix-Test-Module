@@ -16,11 +16,8 @@ interface BooksServiceInterface
     public function getBooks(int $page, int $perPage, array $order = null): array;
 
     /**
-     * @param int        $page
-     * @param int        $perPage
-     * @param array|null $order
-     * @return array
+     * @return int
      */
-    public function getBooksPagination(int $page, int $perPage, array $order = null): array;
+    public function getBooksCount(): int;
 
 }

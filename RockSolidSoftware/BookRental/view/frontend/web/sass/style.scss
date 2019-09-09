@@ -1,13 +1,45 @@
 @import 'mixins';
 
 #book-rental {
-    width: 90%;
-    margin: 0 auto;
-
     h2.light {
         font-weight: 300;
         span {
             font-weight: 500;
+        }
+    }
+    .book-rent-entry {
+        display: flex;
+        margin: 10px 0;
+        justify-content: space-between;
+        @include animate(background-color 0.15s);
+        &:hover {
+            background-color: whitesmoke;
+        }
+        > div {
+            padding: 2px 5px 2px 15px;
+        }
+        .book-rent-entry__title {
+            width: 250px;
+            flex-shrink: 0;
+            padding-left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .book-rent-entry__author {
+            flex-grow: 1;
+            border-left: 1px solid whitesmoke;
+        }
+        .book-rent-entry__status {
+            width: 200px;
+            &.taken {
+                color: lightgray;
+                border-left: 2px solid lightgray;
+            }
+            &.available {
+                color: green;
+                border-left: 2px solid green;
+            }
         }
     }
 }

@@ -36,7 +36,13 @@ class Collection extends SearchResult
     {
         $items = parent::getItems();
 
+        foreach ($items as $item) {
+            $data = $item->getData();
 
+            $data['status'] = 'heheszki';
+
+            $item->setData($data);
+        }
 
         return $items;
     }

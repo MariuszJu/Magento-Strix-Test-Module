@@ -3,38 +3,37 @@
 namespace RockSolidSoftware\BookRental\Model;
 
 use Magento\Framework\DataObject;
-use RockSolidSoftware\BookRental\Model\BookFactory;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\Data\EntityInterface;
-use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
-use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook;
-use RockSolidSoftware\BookRental\Model\ResourceModel\Book\Collection;
-use RockSolidSoftware\BookRental\Model\ResourceModel\Book as BookResource;
-use RockSolidSoftware\BookRental\Model\ResourceModel\Book\CollectionFactory;
-use RockSolidSoftware\BookRental\Model\ResourceModel\BookFactory as BookResourceFactory;
+use RockSolidSoftware\BookRental\API\Data\CustomerBookInterface;
+use RockSolidSoftware\BookRental\API\CustomerBookRepositoryInterface;
+use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook\Collection;
+use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook\CollectionFactory;
+use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook as CustomerBookResource;
+use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBookFactory as CustomerBookResourceFactory;
 
-class BookRepository implements BookRepositoryInterface
+class CustomerBookRepository implements CustomerBookRepositoryInterface
 {
 
-    /** @var BookInterface */
-    private $book;
+    /** @var CustomerBookInterface */
+    private $customerBook;
 
-    /** @var BookResource */
+    /** @var CustomerBookResource */
     private $resource;
 
     /** @var Collection */
     private $collection;
 
     /**
-     * BookRepository constructor
+     * CustomerBookRepository constructor
      *
-     * @param BookInterface       $book
-     * @param BookResourceFactory $bookResourceFactory
-     * @param CollectionFactory   $collectionFactory
+     * @param CustomerBookInterface       $customerBook
+     * @param CustomerBookResourceFactory $bookResourceFactory
+     * @param CollectionFactory           $collectionFactory
      */
-    public function __construct(BookInterface $book, BookResourceFactory $bookResourceFactory, CollectionFactory $collectionFactory)
+    public function __construct(CustomerBookInterface $customerBook, CustomerBookResourceFactory $bookResourceFactory, CollectionFactory $collectionFactory)
     {
-        $this->book = $book;
+        $this->customerBook = $customerBook;
         $this->resource = $bookResourceFactory->create();
         $this->collection = $collectionFactory->create();
     }
@@ -46,8 +45,8 @@ class BookRepository implements BookRepositoryInterface
      */
     public function save($entity): int
     {
-        if (!$entity instanceof BookInterface) {
-            $entity = (clone $this->book)->setData($entity);
+        if (!$entity instanceof CustomerBookInterface) {
+            $entity = (clone $this->customerBook)->setData($entity);
         }
 
         $this->resource->save($entity);
@@ -62,7 +61,7 @@ class BookRepository implements BookRepositoryInterface
      */
     public function getById(int $id): EntityInterface
     {
-        $entity = clone $this->book;
+        $entity = clone $this->customerBook;
         $this->resource->load($entity, $id, 'id');
 
         if (!$entity->getId()) {
@@ -78,33 +77,6 @@ class BookRepository implements BookRepositoryInterface
     public function all(): array
     {
         return $this->collection->getItems();
-    }
-
-    /**
-     * @param int        $page
-     * @param int        $perPage
-     * @param array|null $order
-     * @return DataObject[]
-     */
-    public function getPage(int $page, int $perPage = 10, array $order = null): array
-    {
-        $collection = $this->collection;
-
-        $collection->getSelect()
-            ->joinLeft(
-                ['cb' => CustomerBook::table],
-                'cb.book_id = main_table.id', [
-                    'cb_id'          => 'cb.id',
-                    'cb_customer_id' => 'cb.customer_id',
-                    'cb_is_rented'   => 'cb.is_rented',
-                ]
-            );
-
-        is_array($order) && !empty($order) && $collection->setOrder(key($order), reset($order));
-
-        $collection->setCurPage($page);
-
-        return $collection->getItems();
     }
 
     /**

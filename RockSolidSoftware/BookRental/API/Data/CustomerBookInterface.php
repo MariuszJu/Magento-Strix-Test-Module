@@ -2,7 +2,7 @@
 
 namespace RockSolidSoftware\BookRental\API\Data;
 
-interface BookInterface extends EntityInterface
+interface CustomerBookInterface extends EntityInterface
 {
 
 

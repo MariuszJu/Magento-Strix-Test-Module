@@ -10,7 +10,7 @@ class FrontentBlock extends Template
 {
 
     /** @var array */
-    protected $defaultOrder = ['id' => 'DESC'];
+    protected $defaultOrder = ['main_table.id' => 'DESC'];
 
     /** @var int */
     protected $perPage = 10;
@@ -32,16 +32,32 @@ class FrontentBlock extends Template
     }
 
     /**
-     * @param int $page
+     * @param int        $page
+     * @param int|null   $perPage
+     * @param array|null $order
      * @return array
      */
-    public function getBooks(int $page = 1): array
+    public function getBooks(int $page = 1, int $perPage = null, array $order = null): array
     {
-        $config = $this->service->getBooksPagination($page, $this->perPage, $this->defaultOrder);
-        
-        echo '<pre>';
-        var_dump($config);
-        echo '</pre>'; die('tt');
+        try {
+            $count = $this->service->getBooksCount();
+
+            $pages = ceil($count / ($perPage = ($perPage ?? $this->perPage)));
+
+            if ($page > $pages) {
+                $page = $pages;
+            }
+
+            $books = $this->service->getBooks($page, $perPage, $order ?? $this->defaultOrder);
+        } catch (\Throwable $e) {
+            var_dump($e->getMessage()); die;
+        }
+
+        return [
+            'page'  => $page,
+            'pages' => $pages,
+            'books' => $books,
+        ];
     }
 
 }

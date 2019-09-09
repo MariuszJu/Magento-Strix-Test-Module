@@ -26,12 +26,40 @@
   -o-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out; }
 
-#book-rental {
-  width: 90%;
-  margin: 0 auto; }
-  #book-rental h2.light {
-    font-weight: 300; }
-    #book-rental h2.light span {
-      font-weight: 500; }
+#book-rental h2.light {
+  font-weight: 300; }
+  #book-rental h2.light span {
+    font-weight: 500; }
+#book-rental .book-rent-entry {
+  display: flex;
+  margin: 10px 0;
+  justify-content: space-between;
+  -webkit-transition: background-color 0.15s ease-in-out;
+  -moz-transition: background-color 0.15s ease-in-out;
+  -ms-transition: background-color 0.15s ease-in-out;
+  -o-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out; }
+  #book-rental .book-rent-entry:hover {
+    background-color: whitesmoke; }
+  #book-rental .book-rent-entry > div {
+    padding: 2px 5px 2px 15px; }
+  #book-rental .book-rent-entry .book-rent-entry__title {
+    width: 250px;
+    flex-shrink: 0;
+    padding-left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  #book-rental .book-rent-entry .book-rent-entry__author {
+    flex-grow: 1;
+    border-left: 1px solid whitesmoke; }
+  #book-rental .book-rent-entry .book-rent-entry__status {
+    width: 200px; }
+    #book-rental .book-rent-entry .book-rent-entry__status.taken {
+      color: lightgray;
+      border-left: 2px solid lightgray; }
+    #book-rental .book-rent-entry .book-rent-entry__status.available {
+      color: green;
+      border-left: 2px solid green; }
 
 /*# sourceMappingURL=style.css.map */

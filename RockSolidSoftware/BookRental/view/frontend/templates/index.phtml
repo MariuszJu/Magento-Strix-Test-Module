@@ -6,4 +6,27 @@ $books = $block->getBooks();
 
 ?>
 
-czesc
+<div id='book-rental'>
+    <h2><?= __('Books available to rent') ?></h2>
+
+    <?php /** @var \RockSolidSoftware\BookRental\API\Data\BookInterface $book */ ?>
+    <?php foreach ($books['books'] ?? [] as $book): ?>
+        <?php $data = $book->getData() ?>
+
+        <div class='book-rent-entry'>
+            <div class='book-rent-entry__title'>
+                <?= $book['author'] ?? '---' ?>
+            </div>
+            <div class='book-rent-entry__author'>
+                <?= $book['title'] ?? '---' ?>
+            </div>
+            <div class='book-rent-entry__status <?= ($taken = $book['cb_is_rented'] ?? false) ? 'taken' : 'available' ?>'>
+                <?php if ($taken): ?>
+                    <?= __('Rented') ?>
+                <?php else: ?>
+                    <a href=''><?= __('Rent') ?></a>
+                <?php endif ?>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
