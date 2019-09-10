@@ -1,0 +1,26 @@
+<?php
+
+/** @var $block \RockSolidSoftware\BookRental\Block\FrontentBlock */
+
+$book = $block->getBook($block->getRequest()->getParam('slug'));
+
+?>
+
+<div id='book-rental'>
+    <div class='book-show-box'>
+        <h4><?= $book->getAuthor() ?></h4>
+        <h2><?= $book->getTitle() ?></h2>
+
+        <div class='book-status'>
+            <?php if ($book->isTaken()): ?>
+                <div class='book-status-taken'>
+                    <span><?= __('We are sorry, but this book is not available to be rented at the moment') ?></span>
+                    <br/>
+                    <a href='<?= $block->getUrl('book_rental/index/index') ?>'><?= __('Go back to choose another book') ?></a>
+                </div>
+            <?php else: ?>
+                free
+            <?php endif ?>
+        </div>
+    </div>
+</div>

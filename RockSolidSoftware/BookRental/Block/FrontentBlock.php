@@ -4,6 +4,7 @@ namespace RockSolidSoftware\BookRental\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
+use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\BooksServiceInterface;
 
 class FrontentBlock extends Template
@@ -58,6 +59,15 @@ class FrontentBlock extends Template
             'pages' => $pages,
             'books' => $books,
         ];
+    }
+
+    /**
+     * @param string $slug
+     * @return BookInterface
+     */
+    public function getBook(string $slug)
+    {
+        return $this->service->getBook($slug, true);
     }
 
 }

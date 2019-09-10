@@ -26,6 +26,14 @@
                 type="RockSolidSoftware\BookRental\Model\Book"
     />
 
+    <preference for="RockSolidSoftware\BookRental\API\Data\CustomerBookInterface"
+                type="RockSolidSoftware\BookRental\Model\CustomerBook"
+    />
+
+    <preference for="RockSolidSoftware\BookRental\API\CustomerBookRepositoryInterface"
+                type="RockSolidSoftware\BookRental\Model\CustomerBookRepository"
+    />
+
     <preference for="RockSolidSoftware\BookRental\API\BooksServiceInterface"
                 type="RockSolidSoftware\BookRental\Service\BooksService"
     />

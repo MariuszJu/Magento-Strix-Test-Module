@@ -15,7 +15,7 @@ class Edit extends Action
     private $processor;
 
     /**
-     * Add constructor
+     * Edit constructor
      *
      * @param Context              $context
      * @param BookProcessorFactory $bookProcessorFactory
@@ -38,7 +38,7 @@ class Edit extends Action
 
         if (!empty($post = $this->getRequest()->getParam('book'))) {
             try {
-                $this->processor->save(null, $post);
+                $this->processor->save($post);
             } catch (\Throwable $e) {
                 $this->messageManager->addErrorMessage(
                     $e instanceof \RuntimeException ? $e->getMessage() : 'Unexpected error occured'

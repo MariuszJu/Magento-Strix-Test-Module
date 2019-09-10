@@ -72,6 +72,23 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * @throws \RuntimeException
+     * @param int $bookId
+     * @return CustomerBookInterface
+     */
+    public function getByBookId(int $bookId): CustomerBookInterface
+    {
+        $entity = clone $this->customerBook;
+        $this->resource->load($entity, $bookId, 'book_id');
+
+        if (!$entity->getId()) {
+            throw new \RuntimeException(sprintf('Customer book entity for book ID %s does not exist', $bookId));
+        }
+
+        return $entity;
+    }
+
+    /**
      * @return DataObject[]
      */
     public function all(): array

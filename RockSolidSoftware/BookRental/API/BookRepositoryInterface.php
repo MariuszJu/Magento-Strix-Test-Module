@@ -2,6 +2,8 @@
 
 namespace RockSolidSoftware\BookRental\API;
 
+use RockSolidSoftware\BookRental\API\Data\BookInterface;
+
 interface BookRepositoryInterface extends RepositoryInterface
 {
 
@@ -12,5 +14,11 @@ interface BookRepositoryInterface extends RepositoryInterface
      * @return mixed
      */
     public function getPage(int $page, int $perPage = 10, array $order = null);
+
+    /**
+     * @param string $slug
+     * @return BookInterface
+     */
+    public function getBySlug(string $slug): BookInterface;
 
 }

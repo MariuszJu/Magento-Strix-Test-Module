@@ -7,6 +7,35 @@
             font-weight: 500;
         }
     }
+    .book-show-box {
+        text-align: center;
+        h2 {
+            font-size: 30px;
+            font-weight: 300;
+        }
+        h4 {
+            color: gray;
+            font-size: 14px;
+            font-weight: 300;
+        }
+        .book-status-taken {
+            margin: 40px 0;
+            span {
+                color: gray;
+                font-size: 12px;
+                padding: 0 20px;
+                font-weight: 600;
+                display: inline-block;
+                border-left: 2px solid whitesmoke;
+                border-right: 2px solid whitesmoke;
+            }
+            a {
+                font-size: 12px;
+                margin: 50px 0 0 0;
+                display: inline-block;
+            }
+        }
+    }
     .book-rent-entry {
         display: flex;
         margin: 10px 0;

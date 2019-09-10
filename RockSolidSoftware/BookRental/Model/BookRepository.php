@@ -58,7 +58,7 @@ class BookRepository implements BookRepositoryInterface
     /**
      * @throws \RuntimeException
      * @param int $id
-     * @return BookInterface
+     * @return EntityInterface
      */
     public function getById(int $id): EntityInterface
     {
@@ -67,6 +67,23 @@ class BookRepository implements BookRepositoryInterface
 
         if (!$entity->getId()) {
             throw new \RuntimeException(sprintf('Book with the %s ID does not exist', $id));
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @throws \RuntimeException
+     * @param string $slug
+     * @return BookInterface
+     */
+    public function getBySlug(string $slug): BookInterface
+    {
+        $entity = clone $this->book;
+        $this->resource->load($entity, $slug, 'slug');
+
+        if (!$entity->getId()) {
+            throw new \RuntimeException(sprintf('Book with the slug %s does not exist', $slug));
         }
 
         return $entity;

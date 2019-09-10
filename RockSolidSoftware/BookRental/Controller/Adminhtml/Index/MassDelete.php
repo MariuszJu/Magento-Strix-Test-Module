@@ -15,7 +15,7 @@ class MassDelete extends Action
     private $processor;
 
     /**
-     * Delete constructor
+     * MassDelete constructor
      *
      * @param Context              $context
      * @param BookProcessorFactory $pageFactory

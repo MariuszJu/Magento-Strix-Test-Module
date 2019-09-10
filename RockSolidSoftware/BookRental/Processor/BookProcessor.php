@@ -2,7 +2,7 @@
 
 namespace RockSolidSoftware\BookRental\Processor;
 
-use RockSolidSoftware\BookRental\Model\Book;
+use RockSolidSoftware\BookRental\Helper\Inflector;
 use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
 
 class BookProcessor
@@ -24,33 +24,35 @@ class BookProcessor
     /**
      * @throws \RuntimeException
      * @throws \Exception
-     * @param int|null $id
-     * @param array    $post
+     * @param array $bookData
      * @return bool
      */
-    public function save(?int $id = null, array $post = []): bool
+    public function save(array $bookData = []): bool
     {
         $now = (new \DateTime())->format('Y-m-d H:i:s');
 
-        if (!empty($id)) {
-            /** @var Book $book */
-            $book = $this->bookRepository->getById($id);
-            $book->setData('updated_at', $now);
-
-            $bookData = $book->getData();
+        if (isset($bookData['id'])) {
+            $bookData['updated_at'] = $now;
         } else {
-            $book = $bookData = $post;
-            $book['created_at'] = $now;
+            $bookData['created_at'] = $now;
         }
 
-        if (empty($bookData['title'] ?? null)) {
+        if (empty($title = $bookData['title'] ?? null)) {
             throw new \RuntimeException('Title cannot be empty');
         }
-        if (empty($bookData['author'] ?? null)) {
+        if (empty($author = $bookData['author'] ?? null)) {
             throw new \RuntimeException('Author cannot be empty');
         }
 
-        return (bool) $this->bookRepository->save($book);
+        $slug = Inflector::createSlug(vsprintf('%s-%s-%s', [
+            Inflector::cutText($title, 20, ''),
+            Inflector::cutText($author, 20, ''),
+            uniqid(),
+        ]));
+
+        $bookData['slug'] = $slug;
+
+        return (bool) $this->bookRepository->save($bookData);
     }
 
     /**

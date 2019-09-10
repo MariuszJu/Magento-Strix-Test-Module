@@ -24,7 +24,9 @@ $books = $block->getBooks();
                 <?php if ($taken): ?>
                     <?= __('Rented') ?>
                 <?php else: ?>
-                    <a href=''><?= __('Rent') ?></a>
+                    <a href='<?= $block->getUrl('book_rental/index/rent', [
+                        'slug' => $book['slug'] ?? '',
+                    ]) ?>'><?= __('Rent') ?></a>
                 <?php endif ?>
             </div>
         </div>

@@ -38,7 +38,7 @@ class Add extends Action
 
         if (!empty($post = $this->getRequest()->getParam('book'))) {
             try {
-                $this->processor->save(null, $post);
+                $this->processor->save($post);
             } catch (\Throwable $e) {
                 $this->messageManager->addErrorMessage(
                     $e instanceof \RuntimeException ? $e->getMessage() : 'Unexpected error occured'
