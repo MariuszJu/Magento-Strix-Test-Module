@@ -6,6 +6,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\BooksServiceInterface;
+use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 
 class FrontentBlock extends Template
 {
@@ -17,17 +18,22 @@ class FrontentBlock extends Template
     protected $perPage = 10;
 
     /** @var BooksServiceInterface */
-    protected $service;
+    protected $booksService;
+
+    /** @var CustomerServiceInterface */
+    private $customerService;
 
     /**
      * FrontentBlock constructor
      *
-     * @param Context               $context
-     * @param BooksServiceInterface $booksService
+     * @param Context                  $context
+     * @param BooksServiceInterface    $booksService
+     * @param CustomerServiceInterface $customerService
      */
-    public function __construct(Context $context, BooksServiceInterface $booksService)
+    public function __construct(Context $context, BooksServiceInterface $booksService, CustomerServiceInterface $customerService)
     {
-        $this->service = $booksService;
+        $this->booksService = $booksService;
+        $this->customerService = $customerService;
 
         parent::__construct($context);
     }
@@ -41,7 +47,7 @@ class FrontentBlock extends Template
     public function getBooks(int $page = 1, int $perPage = null, array $order = null): array
     {
         try {
-            $count = $this->service->getBooksCount();
+            $count = $this->booksService->getBooksCount();
 
             $pages = ceil($count / ($perPage = ($perPage ?? $this->perPage)));
 
@@ -49,7 +55,7 @@ class FrontentBlock extends Template
                 $page = $pages;
             }
 
-            $books = $this->service->getBooks($page, $perPage, $order ?? $this->defaultOrder);
+            $books = $this->booksService->getBooks($page, $perPage, $order ?? $this->defaultOrder);
         } catch (\Throwable $e) {
             var_dump($e->getMessage()); die;
         }
@@ -67,7 +73,15 @@ class FrontentBlock extends Template
      */
     public function getBook(string $slug)
     {
-        return $this->service->getBook($slug, true);
+        return $this->booksService->getBook($slug, true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canCustomerRentBook(): bool
+    {
+        return $this->customerService->canCustomerRentBook();
     }
 
 }

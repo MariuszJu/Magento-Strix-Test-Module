@@ -37,4 +37,8 @@
     <preference for="RockSolidSoftware\BookRental\API\BooksServiceInterface"
                 type="RockSolidSoftware\BookRental\Service\BooksService"
     />
+
+    <preference for="RockSolidSoftware\BookRental\API\CustomerServiceInterface"
+                type="RockSolidSoftware\BookRental\Service\CustomerService"
+    />
 </config>

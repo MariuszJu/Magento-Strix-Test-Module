@@ -89,6 +89,17 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * @param int $customerId
+     * @return DataObject[]
+     */
+    public function getByCustomerId(int $customerId): array
+    {
+        return $this->collection
+            ->addFilter('customer_id', $customerId)
+            ->getItems();
+    }
+
+    /**
      * @return DataObject[]
      */
     public function all(): array

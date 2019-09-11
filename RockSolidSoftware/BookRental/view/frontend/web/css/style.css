@@ -53,6 +53,12 @@
       font-size: 12px;
       margin: 50px 0 0 0;
       display: inline-block; }
+  #book-rental .book-show-box .book-status-free {
+    margin: 40px 0; }
+    #book-rental .book-show-box .book-status-free a {
+      font-size: 16px;
+      margin: 50px 0 0 0;
+      display: inline-block; }
 #book-rental .book-rent-entry {
   display: flex;
   margin: 10px 0;
