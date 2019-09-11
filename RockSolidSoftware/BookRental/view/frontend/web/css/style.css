@@ -30,6 +30,17 @@
   font-weight: 300; }
   #book-rental h2.light span {
     font-weight: 500; }
+#book-rental .books-pagination {
+  display: flex;
+  margin-top: 30px;
+  padding-top: 15px;
+  justify-content: center;
+  border-top: 1px solid whitesmoke; }
+  #book-rental .books-pagination a {
+    margin: 0 10px;
+    display: block; }
+    #book-rental .books-pagination a.active {
+      font-weight: bold; }
 #book-rental .book-show-box {
   text-align: center; }
   #book-rental .book-show-box h2 {
@@ -72,6 +83,8 @@
     background-color: whitesmoke; }
   #book-rental .book-rent-entry > div {
     padding: 2px 5px 2px 15px; }
+  #book-rental .book-rent-entry.taken .book-rent-entry__title, #book-rental .book-rent-entry.taken .book-rent-entry__author {
+    color: lightgray; }
   #book-rental .book-rent-entry .book-rent-entry__title {
     width: 250px;
     flex-shrink: 0;

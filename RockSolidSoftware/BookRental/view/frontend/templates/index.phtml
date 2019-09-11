@@ -2,7 +2,7 @@
 
 /** @var $block \RockSolidSoftware\BookRental\Block\FrontentBlock */
 
-$books = $block->getBooks();
+$books = $block->getBooks($block->getRequest()->getParam('page', 1));
 
 ?>
 
@@ -11,24 +11,33 @@ $books = $block->getBooks();
 
     <?php /** @var \RockSolidSoftware\BookRental\API\Data\BookInterface $book */ ?>
     <?php foreach ($books['books'] ?? [] as $book): ?>
-        <?php $data = $book->getData() ?>
+        <?php $taken = $book->getIsRented() ?? false ?>
 
-        <div class='book-rent-entry'>
+        <div class='book-rent-entry <?= $taken ? 'taken' : '' ?>'>
             <div class='book-rent-entry__title'>
-                <?= $book['author'] ?? '---' ?>
+                <?= $book->getAuthor() ?>
             </div>
             <div class='book-rent-entry__author'>
-                <?= $book['title'] ?? '---' ?>
+                <?= $book->getTitle() ?>
             </div>
-            <div class='book-rent-entry__status <?= ($taken = $book['cb_is_rented'] ?? false) ? 'taken' : 'available' ?>'>
+            <div class='book-rent-entry__status <?= $taken ? 'taken' : 'available' ?>'>
                 <?php if ($taken): ?>
                     <?= __('Rented') ?>
                 <?php else: ?>
                     <a href='<?= $block->getUrl('book_rental/index/rent', [
-                        'slug' => $book['slug'] ?? '',
+                        'slug' => $book->getSlug() ?? '',
                     ]) ?>'><?= __('Rent') ?></a>
                 <?php endif ?>
             </div>
         </div>
     <?php endforeach ?>
+
+    <div class='books-pagination'>
+        <?php for ($i = 1 ; $i <= $books['pages'] ; $i++): ?>
+            <a href='<?= $block->getUrl('*/*/*', [
+                'page' => $i,
+            ]) ?>' class='<?= $i == $books['page'] ? 'active' : '' ?>'
+            ><?= $i ?></a>
+        <?php endfor ?>
+    </div>
 </div>

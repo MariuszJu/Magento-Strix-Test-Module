@@ -94,7 +94,9 @@ class BookRepository implements BookRepositoryInterface
      */
     public function all(): array
     {
-        return $this->collection->getItems();
+        return (clone $this->collection)
+            ->clear()
+            ->getItems();
     }
 
     /**
@@ -105,20 +107,28 @@ class BookRepository implements BookRepositoryInterface
      */
     public function getPage(int $page, int $perPage = 10, array $order = null): array
     {
-        $collection = $this->collection;
+        $collection = (clone $this->collection)->clear();
 
         $collection->getSelect()
             ->joinLeft(
                 ['cb' => CustomerBook::table],
                 'cb.book_id = main_table.id', [
-                    'cb_id'          => 'cb.id',
-                    'cb_customer_id' => 'cb.customer_id',
-                    'cb_is_rented'   => 'cb.is_rented',
+                    'customer_id' => 'cb.customer_id',
+                    'is_rented'   => 'cb.is_rented',
                 ]
             );
+//            ->joinLeft(
+//                ['customer' => 'customer_entity'],
+//                'customer.entity_id = cb.customer_id', [
+//                    'customer_email'     => 'customer.email',
+//                    'customer_firstname' => 'customer.firstname',
+//                    'customer_lastname'  => 'customer.lastname',
+//                ]
+//            );
 
         is_array($order) && !empty($order) && $collection->setOrder(key($order), reset($order));
 
+        $collection->setPageSize($perPage);
         $collection->setCurPage($page);
 
         return $collection->getItems();
@@ -129,7 +139,9 @@ class BookRepository implements BookRepositoryInterface
      */
     public function getEntitiesCount(): int
     {
-        return $this->collection->getSize();
+        return (clone $this->collection)
+            ->clear()
+            ->getSize();
     }
 
     /**
@@ -137,7 +149,9 @@ class BookRepository implements BookRepositoryInterface
      */
     public function last(): ?EntityInterface
     {
-        $collection = $this->collection->setOrder('id', 'DESC');
+        $collection = (clone $this->collection)
+            ->clear()
+            ->setOrder('id', 'DESC');
 
         return $collection->getSize() ? $collection->getFirstItem() : null;
     }

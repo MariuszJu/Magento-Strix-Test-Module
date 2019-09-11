@@ -15,7 +15,7 @@ class FrontentBlock extends Template
     protected $defaultOrder = ['main_table.id' => 'DESC'];
 
     /** @var int */
-    protected $perPage = 10;
+    protected $perPage = 6;
 
     /** @var BooksServiceInterface */
     protected $booksService;
@@ -46,19 +46,15 @@ class FrontentBlock extends Template
      */
     public function getBooks(int $page = 1, int $perPage = null, array $order = null): array
     {
-        try {
-            $count = $this->booksService->getBooksCount();
+        $count = $this->booksService->getBooksCount();
 
-            $pages = ceil($count / ($perPage = ($perPage ?? $this->perPage)));
+        $pages = ceil($count / ($perPage = ($perPage ?? $this->perPage)));
 
-            if ($page > $pages) {
-                $page = $pages;
-            }
-
-            $books = $this->booksService->getBooks($page, $perPage, $order ?? $this->defaultOrder);
-        } catch (\Throwable $e) {
-            var_dump($e->getMessage()); die;
+        if ($page > $pages) {
+            $page = $pages;
         }
+
+        $books = $this->booksService->getBooks($page, $perPage, $order ?? $this->defaultOrder);
 
         return [
             'page'  => $page,
@@ -82,6 +78,14 @@ class FrontentBlock extends Template
     public function canCustomerRentBook(): bool
     {
         return $this->customerService->canCustomerRentBook();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function customerBooks()
+    {
+        return $this->customerService->customerBooks();
     }
 
 }

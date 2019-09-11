@@ -7,6 +7,20 @@
             font-weight: 500;
         }
     }
+    .books-pagination {
+        display: flex;
+        margin-top: 30px;
+        padding-top: 15px;
+        justify-content: center;
+        border-top: 1px solid whitesmoke;
+        a {
+            margin: 0 10px;
+            display: block;
+            &.active {
+                font-weight: bold;
+            }
+        }
+    }
     .book-show-box {
         text-align: center;
         h2 {
@@ -54,6 +68,11 @@
         }
         > div {
             padding: 2px 5px 2px 15px;
+        }
+        &.taken {
+            .book-rent-entry__title, .book-rent-entry__author {
+                color: lightgray;
+            }
         }
         .book-rent-entry__title {
             width: 250px;

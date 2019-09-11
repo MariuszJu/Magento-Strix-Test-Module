@@ -39,7 +39,7 @@ class Book extends AbstractModel implements BookInterface
      */
     public function isTaken(): bool
     {
-        return !empty($this->customerBook);
+        return !empty($this->customerBook) && $this->customerBook->getIsRented();
     }
 
 }

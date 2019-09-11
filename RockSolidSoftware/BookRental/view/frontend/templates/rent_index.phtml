@@ -1,0 +1,28 @@
+<?php
+
+/** @var $block \RockSolidSoftware\BookRental\Block\FrontentBlock */
+
+$customerBooks = $block->customerBooks();
+
+?>
+
+<div id='book-rental'>
+    <h2><?= __('Your rented books') ?></h2>
+
+    <?php /** @var \RockSolidSoftware\BookRental\API\Data\CustomerBookInterface $customerBook */ ?>
+    <?php foreach ($customerBooks as $customerBook): ?>
+        <div class='book-rent-entry'>
+            <div class='book-rent-entry__title'>
+                <?= $customerBook->getBookAuthor() ?>
+            </div>
+            <div class='book-rent-entry__author'>
+                <?= $customerBook->getBookTitle() ?>
+            </div>
+            <div class='book-rent-entry__status'>
+                <a href='<?= $block->getUrl('book_rental/rent/book', [
+                    'slug' => $customerBook->getBookSlug(),
+                ]) ?>'><?= __('Return book') ?></a>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>

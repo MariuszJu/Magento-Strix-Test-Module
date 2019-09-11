@@ -22,7 +22,9 @@ $canRent = $block->canCustomerRentBook();
             <?php else: ?>
                 <?php if ($canRent): ?>
                     <div class='book-status-free'>
-                        <a href='<?= $block->getUrl('book_rental/rent/rent') ?>'><?= __('Rent this book') ?></a>
+                        <a href='<?= $block->getUrl('book_rental/rent/rent', [
+                            'slug' => $book->getSlug(),
+                        ]) ?>'><?= __('Rent this book') ?></a>
                     </div>
                 <?php else: ?>
                     <div class='book-status-taken'>

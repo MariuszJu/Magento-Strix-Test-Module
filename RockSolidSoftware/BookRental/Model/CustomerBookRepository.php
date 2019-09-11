@@ -5,6 +5,7 @@ namespace RockSolidSoftware\BookRental\Model;
 use Magento\Framework\DataObject;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\Data\EntityInterface;
+use RockSolidSoftware\BookRental\Model\ResourceModel\Book;
 use RockSolidSoftware\BookRental\API\Data\CustomerBookInterface;
 use RockSolidSoftware\BookRental\API\CustomerBookRepositoryInterface;
 use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook\Collection;
@@ -57,7 +58,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     /**
      * @throws \RuntimeException
      * @param int $id
-     * @return BookInterface
+     * @return EntityInterface
      */
     public function getById(int $id): EntityInterface
     {
@@ -78,10 +79,16 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function getByBookId(int $bookId): CustomerBookInterface
     {
-        $entity = clone $this->customerBook;
-        $this->resource->load($entity, $bookId, 'book_id');
+//        $entity = clone $this->customerBook;
+//        $this->resource->load($entity, $bookId, 'book_id');
 
-        if (!$entity->getId()) {
+        $entity = (clone $this->collection)
+            ->clear()
+            ->addFilter('book_id', $bookId)
+            ->addFilter('is_rented', 1)
+            ->getFirstItem();
+
+        if (!$entity || !$entity->getId()) {
             throw new \RuntimeException(sprintf('Customer book entity for book ID %s does not exist', $bookId));
         }
 
@@ -89,14 +96,31 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * @param int $customerId
+     * @param int       $customerId
+     * @param bool|null $onlyRented
      * @return DataObject[]
      */
-    public function getByCustomerId(int $customerId): array
+    public function getByCustomerId(int $customerId, bool $onlyRented = null): array
     {
-        return $this->collection
-            ->addFilter('customer_id', $customerId)
-            ->getItems();
+        $collection = (clone $this->collection)->clear();
+
+        $collection->getSelect()
+            ->joinLeft(
+                ['book' => Book::table],
+                'book.id = main_table.book_id', [
+                    'book_title'  => 'book.title',
+                    'book_author' => 'book.author',
+                    'book_slug'   => 'book.slug',
+                ]
+            );
+
+        $collection->addFilter('customer_id', $customerId);
+
+        if (!is_null($onlyRented)) {
+            $collection->addFilter('is_rented', (int) $onlyRented);
+        }
+
+        return $collection->getItems();
     }
 
     /**
@@ -104,7 +128,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function all(): array
     {
-        return $this->collection->getItems();
+        return (clone $this->collection)
+            ->clear()
+            ->getItems();
     }
 
     /**
@@ -112,7 +138,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function getEntitiesCount(): int
     {
-        return $this->collection->getSize();
+        return (clone $this->collection)
+            ->clear()
+            ->getSize();
     }
 
     /**
@@ -120,7 +148,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function last(): ?EntityInterface
     {
-        $collection = $this->collection->setOrder('id', 'DESC');
+        $collection = (clone $this->collection)
+            ->clear()
+            ->setOrder('id', 'DESC');
 
         return $collection->getSize() ? $collection->getFirstItem() : null;
     }
