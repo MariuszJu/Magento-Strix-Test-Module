@@ -63,4 +63,9 @@ class Index extends Action
         return $this->pageFactory->create();
     }
 
+    public function beforeGetVaryString()
+    {
+
+    }
+
 }

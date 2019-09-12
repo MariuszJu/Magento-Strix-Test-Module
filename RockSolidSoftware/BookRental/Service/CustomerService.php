@@ -17,7 +17,7 @@ class CustomerService implements CustomerServiceInterface
     /** @var CustomerBookRepositoryInterface */
     private $customerBookRepository;
 
-    /** @var Session */
+    /** @var SessionFactory */
     private $customerSession;
 
     /** @var Config */

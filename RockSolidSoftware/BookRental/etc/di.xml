@@ -18,6 +18,12 @@
         </arguments>
     </type>
 
+    <!--<type name="Magento\Framework\App\Http\Context">-->
+        <!--<plugin name="book_rental_customer_cache_context_plugin"-->
+                <!--type="RockSolidSoftware\BookRental\Plugin\CustomerCacheContextPlugin"-->
+        <!--/>-->
+    <!--</type>-->
+
     <preference for="RockSolidSoftware\BookRental\API\BookRepositoryInterface"
                 type="RockSolidSoftware\BookRental\Model\BookRepository"
     />

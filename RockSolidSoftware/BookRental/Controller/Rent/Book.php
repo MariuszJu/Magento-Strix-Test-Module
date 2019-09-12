@@ -66,6 +66,10 @@ class Book extends Action
                 $e instanceof \RuntimeException
                     ? $e->getMessage() : __('Unexpected error occured. Please try again')
             );
+            
+            echo '<pre>';
+            print_r($e->getMessage());
+            echo '</pre>'; die('');
 
             return $this->_redirect('*/*/index');
         }
