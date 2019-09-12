@@ -23,6 +23,9 @@ $customerBooks = $block->customerBooks();
                 <div class='book-rent-entry__author'>
                     <?= $customerBook->getBookTitle() ?>
                 </div>
+                <div class='book-rent-entry__since'>
+                    <?= __('Rented since') ?>: <?= (new \DateTime($customerBook->getCreatedAt()))->format('Y-m-d H:i') ?>
+                </div>
                 <div class='book-rent-entry__status'>
                     <a href='<?= $block->getUrl('book_rental/rent/book', [
                         'slug' => $customerBook->getBookSlug(),
