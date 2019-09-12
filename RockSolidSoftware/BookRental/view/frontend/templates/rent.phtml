@@ -1,6 +1,6 @@
 <?php
 
-/** @var $block \RockSolidSoftware\BookRental\Block\FrontentBlock */
+/** @var $block \RockSolidSoftware\BookRental\Block\BookBlock */
 
 $book = $block->getBook($block->getRequest()->getParam('slug'));
 $canRent = $block->canCustomerRentBook();
@@ -29,6 +29,9 @@ $canRent = $block->canCustomerRentBook();
                 <?php else: ?>
                     <div class='book-status-taken'>
                         <span><?= __('You reached out your rented books limit. Please return one of your books to be abile to rent another') ?></span>
+
+                        <br/>
+                        <a href='<?= $block->getUrl('book_rental/rent/index') ?>'><?= __('See your rented books') ?></a>
                     </div>
                 <?php endif ?>
             <?php endif ?>

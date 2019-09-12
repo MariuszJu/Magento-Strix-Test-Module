@@ -5,14 +5,14 @@
             <block class="RockSolidSoftware\BookRental\Block\FooterBlock" name="books_footer_content" template="RockSolidSoftware_BookRental::footer.phtml"/>
         </referenceContainer>
 
-        <referenceBlock name="header.links">
-            <block class="RockSolidSoftware\BookRental\Block\CustomerLink" name="add-new-header-link">
-                <arguments>
-                    <argument name="label" xsi:type="string" translate="true">My Rented Books</argument>
-                    <argument name="path" xsi:type="string" translate="true">book_rental/rent/index</argument>
-                </arguments>
-            </block>
-        </referenceBlock>
+        <!--<referenceBlock name="header.links">-->
+            <!--<block class="RockSolidSoftware\BookRental\Block\CustomerLink" name="add-new-header-link">-->
+                <!--<arguments>-->
+                    <!--<argument name="label" xsi:type="string" translate="true">My Rented Books</argument>-->
+                    <!--<argument name="path" xsi:type="string" translate="true">book_rental/rent/index</argument>-->
+                <!--</arguments>-->
+            <!--</block>-->
+        <!--</referenceBlock>-->
 
         <referenceBlock name="top.links">
             <block class="RockSolidSoftware\BookRental\Block\CustomerLink" name="test-top-link" before="my-account-link">

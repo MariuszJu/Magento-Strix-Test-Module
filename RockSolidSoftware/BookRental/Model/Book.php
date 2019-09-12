@@ -3,12 +3,15 @@
 namespace RockSolidSoftware\BookRental\Model;
 
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\DataObject\IdentityInterface;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\Data\CustomerBookInterface;
 use RockSolidSoftware\BookRental\Model\ResourceModel\Book as BookResource;
 
-class Book extends AbstractModel implements BookInterface
+class Book extends AbstractModel implements BookInterface, IdentityInterface
 {
+
+    const CACHE_TAG = 'book';
 
     /** @var CustomerBookInterface */
     protected $customerBook;
@@ -40,6 +43,14 @@ class Book extends AbstractModel implements BookInterface
     public function isTaken(): bool
     {
         return !empty($this->customerBook) && $this->customerBook->getIsRented();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdentities(): array
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
 }

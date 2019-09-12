@@ -18,7 +18,7 @@ class MassDelete extends Action
      * MassDelete constructor
      *
      * @param Context              $context
-     * @param BookProcessorFactory $pageFactory
+     * @param BookProcessorFactory $bookProcessorFactory
      */
     public function __construct(Context $context, BookProcessorFactory $bookProcessorFactory)
     {

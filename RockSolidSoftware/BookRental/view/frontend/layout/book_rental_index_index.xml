@@ -5,7 +5,7 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block cacheable="false" class="RockSolidSoftware\BookRental\Block\FrontentBlock" name="book_rental_index_index" template="RockSolidSoftware_BookRental::index.phtml"/>
+            <block cacheable="true" class="RockSolidSoftware\BookRental\Block\BooksBlock" name="book_rental_index_index" template="RockSolidSoftware_BookRental::index.phtml"/>
         </referenceContainer>
     </body>
 </page>

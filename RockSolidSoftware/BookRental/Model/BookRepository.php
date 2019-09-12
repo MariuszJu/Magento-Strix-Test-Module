@@ -107,12 +107,12 @@ class BookRepository implements BookRepositoryInterface
      */
     public function getPage(int $page, int $perPage = 10, array $order = null): array
     {
-        $collection = (clone $this->collection)->clear();
+        $collection = clone $this->collection;
 
         $collection->getSelect()
             ->joinLeft(
                 ['cb' => CustomerBook::table],
-                'cb.book_id = main_table.id', [
+                'cb.book_id = main_table.id AND cb.is_rented = 1', [
                     'customer_id' => 'cb.customer_id',
                     'is_rented'   => 'cb.is_rented',
                 ]
@@ -139,9 +139,7 @@ class BookRepository implements BookRepositoryInterface
      */
     public function getEntitiesCount(): int
     {
-        return (clone $this->collection)
-            ->clear()
-            ->getSize();
+        return (clone $this->collection)->getSize();
     }
 
     /**
@@ -149,9 +147,7 @@ class BookRepository implements BookRepositoryInterface
      */
     public function last(): ?EntityInterface
     {
-        $collection = (clone $this->collection)
-            ->clear()
-            ->setOrder('id', 'DESC');
+        $collection = (clone $this->collection)->setOrder('id', 'DESC');
 
         return $collection->getSize() ? $collection->getFirstItem() : null;
     }

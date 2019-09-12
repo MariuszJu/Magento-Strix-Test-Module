@@ -3,6 +3,7 @@
 namespace RockSolidSoftware\BookRental\Service;
 
 use Magento\Customer\Model\Session;
+use Magento\Customer\Model\SessionFactory;
 use RockSolidSoftware\BookRental\Helper\Config;
 use RockSolidSoftware\BookRental\Helper\ConfigFactory;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
@@ -23,13 +24,13 @@ class CustomerService implements CustomerServiceInterface
     private $config;
 
     /**
-     * CustomerService constructor.
+     * CustomerService constructor
      *
      * @param CustomerBookRepositoryInterface $customerBookRepository
-     * @param Session                         $customerSession
+     * @param SessionFactory                  $customerSession
      * @param ConfigFactory                   $configFactory
      */
-    public function __construct(CustomerBookRepositoryInterface $customerBookRepository, Session $customerSession,
+    public function __construct(CustomerBookRepositoryInterface $customerBookRepository, SessionFactory $customerSession,
                                 ConfigFactory $configFactory)
     {
         $this->config = $configFactory->create();
@@ -43,10 +44,10 @@ class CustomerService implements CustomerServiceInterface
     public function authenticateCustomer(string $afterAuthUrl = null)
     {
         if (!is_null($afterAuthUrl)) {
-            $this->customerSession->setAfterAuthUrl($afterAuthUrl);
+            $this->customerSession()->setAfterAuthUrl($afterAuthUrl);
         }
 
-        $this->customerSession->authenticate();
+        $this->customerSession()->authenticate();
     }
 
     /**
@@ -62,7 +63,7 @@ class CustomerService implements CustomerServiceInterface
      */
     public function customerId(): ?int
     {
-        return $this->customerSession->getCustomerId();
+        return $this->customerSession()->getCustomerId();
     }
 
     /**
@@ -136,6 +137,7 @@ class CustomerService implements CustomerServiceInterface
         }
 
         $customerBook->setIsRented(0);
+        $customerBook->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'));
 
         $this->customerBookRepository->save($customerBook);
     }
@@ -149,6 +151,14 @@ class CustomerService implements CustomerServiceInterface
         $customerId = empty($customerId) ? $this->customerId() : $customerId;
 
         return $this->customerBookRepository->getByCustomerId($customerId, true);
+    }
+
+    /**
+     * @return Session
+     */
+    private function customerSession(): Session
+    {
+        return $this->customerSession->create();
     }
 
 }

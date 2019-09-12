@@ -3,28 +3,26 @@
 namespace RockSolidSoftware\BookRental\Block;
 
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\View\Element\Template\Context;
 use RockSolidSoftware\BookRental\API\Data\BookInterface;
 use RockSolidSoftware\BookRental\API\BooksServiceInterface;
 use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 
-class FrontentBlock extends Template
+class BookBlock extends Template implements IdentityInterface
 {
 
-    /** @var array */
-    protected $defaultOrder = ['main_table.id' => 'DESC'];
-
-    /** @var int */
-    protected $perPage = 6;
+    /** @var BookInterface[] */
+    protected $books = [];
 
     /** @var BooksServiceInterface */
     protected $booksService;
 
     /** @var CustomerServiceInterface */
-    private $customerService;
+    protected $customerService;
 
     /**
-     * FrontentBlock constructor
+     * BookBlock constructor
      *
      * @param Context                  $context
      * @param BooksServiceInterface    $booksService
@@ -39,37 +37,18 @@ class FrontentBlock extends Template
     }
 
     /**
-     * @param int        $page
-     * @param int|null   $perPage
-     * @param array|null $order
-     * @return array
-     */
-    public function getBooks(int $page = 1, int $perPage = null, array $order = null): array
-    {
-        $count = $this->booksService->getBooksCount();
-
-        $pages = ceil($count / ($perPage = ($perPage ?? $this->perPage)));
-
-        if ($page > $pages) {
-            $page = $pages;
-        }
-
-        $books = $this->booksService->getBooks($page, $perPage, $order ?? $this->defaultOrder);
-
-        return [
-            'page'  => $page,
-            'pages' => $pages,
-            'books' => $books,
-        ];
-    }
-
-    /**
      * @param string $slug
      * @return BookInterface
      */
     public function getBook(string $slug)
     {
-        return $this->booksService->getBook($slug, true);
+        if ($book = ($this->books[$slug] ?? null)) {
+            return $book;
+        }
+
+        $book = $this->books[$slug] = $this->booksService->getBook($slug, true);
+
+        return $book;
     }
 
     /**
@@ -81,11 +60,11 @@ class FrontentBlock extends Template
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function customerBooks()
+    public function getIdentities(): array
     {
-        return $this->customerService->customerBooks();
+        return $this->getBook($this->getRequest()->getParam('slug'))->getIdentities();
     }
 
 }

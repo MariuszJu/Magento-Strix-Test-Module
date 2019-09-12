@@ -82,9 +82,18 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
 //        $entity = clone $this->customerBook;
 //        $this->resource->load($entity, $bookId, 'book_id');
 
-        $entity = (clone $this->collection)
-            ->clear()
-            ->addFilter('book_id', $bookId)
+        $collection = (clone $this->collection);
+        $collection->getSelect()
+            ->joinLeft(
+                ['customer' => 'customer_entity'],
+                'customer.entity_id = main_table.customer_id', [
+                    'customer_email'     => 'customer.email',
+                    'customer_firstname' => 'customer.firstname',
+                    'customer_lastname'  => 'customer.lastname',
+                ]
+            );
+
+        $entity = $collection->addFilter('book_id', $bookId)
             ->addFilter('is_rented', 1)
             ->getFirstItem();
 
@@ -102,7 +111,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function getByCustomerId(int $customerId, bool $onlyRented = null): array
     {
-        $collection = (clone $this->collection)->clear();
+        $collection = clone $this->collection;
 
         $collection->getSelect()
             ->joinLeft(
@@ -128,9 +137,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function all(): array
     {
-        return (clone $this->collection)
-            ->clear()
-            ->getItems();
+        return (clone $this->collection)->getItems();
     }
 
     /**
@@ -138,9 +145,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function getEntitiesCount(): int
     {
-        return (clone $this->collection)
-            ->clear()
-            ->getSize();
+        return (clone $this->collection)->getSize();
     }
 
     /**
@@ -148,9 +153,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
      */
     public function last(): ?EntityInterface
     {
-        $collection = (clone $this->collection)
-            ->clear()
-            ->setOrder('id', 'DESC');
+        $collection = (clone $this->collection)->setOrder('id', 'DESC');
 
         return $collection->getSize() ? $collection->getFirstItem() : null;
     }

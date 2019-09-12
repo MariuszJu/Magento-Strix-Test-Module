@@ -49,9 +49,12 @@ class Collection extends SearchResult
             $book = $this->booksService->getBook($data['id'], true);
 
             if ($book->isTaken()) {
+                $customerBook = $book->customerBook();
+
                 $data['status'] = sprintf(
-                    '%s #%s %s',
-                    __('Rented by'), $book->customerBook()->getCustomerId(), ''
+                    '%s #%s %s %s',
+                    __('Rented by'), $customerBook->getCustomerId(), $customerBook->getCustomerFirstname(),
+                    $customerBook->getCustomerLastname()
                 );
             } else {
                 $data['status'] = __('Available');
