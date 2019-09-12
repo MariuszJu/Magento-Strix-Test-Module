@@ -8,6 +8,8 @@ class SaveButton extends BaseButton implements ButtonProviderInterface
 {
 
     /**
+     * Get Save button configuration
+     *
      * @return array
      */
     public function getButtonData(): array
@@ -18,7 +20,7 @@ class SaveButton extends BaseButton implements ButtonProviderInterface
             'data_attribute' => [
                 'mage-init' => [
                     'button' => [
-                        'event' => 'save'
+                        'event' => 'save',
                     ],
                 ],
                 'form-role' => 'save',

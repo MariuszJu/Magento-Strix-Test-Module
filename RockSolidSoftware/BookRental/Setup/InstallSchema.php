@@ -8,6 +8,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use \Magento\Framework\Setup\InstallSchemaInterface;
 use RockSolidSoftware\BookRental\Model\ResourceModel\Book;
+use RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook;
 
 class InstallSchema implements InstallSchemaInterface
 {
@@ -55,6 +56,9 @@ class InstallSchema implements InstallSchemaInterface
                 ->addColumn('author', Table::TYPE_TEXT, 255, [
                     Table::OPTION_NULLABLE => true,
                 ])
+                ->addColumn('slug', Table::TYPE_TEXT, 255, [
+                    Table::OPTION_NULLABLE => false,
+                ])
                 ->addColumn('created_at', Table::TYPE_DATETIME, 255, [
                     Table::OPTION_NULLABLE => false,
                 ])
@@ -74,7 +78,7 @@ class InstallSchema implements InstallSchemaInterface
      */
     private function createCustomerBookTable(SchemaSetupInterface $setup, AdapterInterface $connection)
     {
-        $tableName = $setup->getTable(Book::table);
+        $tableName = $setup->getTable(CustomerBook::table);
 
         if (!$connection->isTableExists($tableName)) {
             $connection->createTable($connection->newTable($tableName)

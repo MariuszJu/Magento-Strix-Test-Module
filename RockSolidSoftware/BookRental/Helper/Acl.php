@@ -6,6 +6,7 @@ class Acl
 {
 
     const ACL_BOOKS_LIST = 'RockSolidSoftware_BookRental::list';
+    const ACL_BOOK_HISTORY = 'RockSolidSoftware_BookRental::history';
     const ACL_CONFIGURATION = 'RockSolidSoftware_BookRental::configuration';
     const ACL_BOOK_ADD = 'RockSolidSoftware_BookRental::adding';
     const ACL_BOOK_EDIT = 'RockSolidSoftware_BookRental::editing';

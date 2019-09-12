@@ -3,12 +3,13 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="RockSolidSoftware_BookRental::admin" title="Book Renal" sortOrder="50">
-                    <resource id="RockSolidSoftware_BookRental::list" title="View Books List" sortOrder="1"/>
+                <resource id="RockSolidSoftware_BookRental::admin" title="Book Rental" sortOrder="50">
+                    <resource id="RockSolidSoftware_BookRental::list" title="Viewing Books List" sortOrder="1"/>
+                    <resource id="RockSolidSoftware_BookRental::history" title="Viewing Book Rental History" sortOrder="1"/>
                     <resource id="RockSolidSoftware_BookRental::configuration" title="Rental Configuration" sortOrder="1"/>
-                    <resource id="RockSolidSoftware_BookRental::adding" title="Add Books" sortOrder="1"/>
-                    <resource id="RockSolidSoftware_BookRental::editing" title="Edit Books" sortOrder="1"/>
-                    <resource id="RockSolidSoftware_BookRental::deleting" title="Delete Books" sortOrder="1"/>
+                    <resource id="RockSolidSoftware_BookRental::adding" title="Adding Books" sortOrder="1"/>
+                    <resource id="RockSolidSoftware_BookRental::editing" title="Editing Books" sortOrder="1"/>
+                    <resource id="RockSolidSoftware_BookRental::deleting" title="Deleting Books" sortOrder="1"/>
                 </resource>
             </resource>
         </resources>

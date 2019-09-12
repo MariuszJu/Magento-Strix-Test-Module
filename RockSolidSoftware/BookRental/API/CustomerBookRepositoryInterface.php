@@ -25,4 +25,12 @@ interface CustomerBookRepositoryInterface extends RepositoryInterface
      */
     public function getByCustomerId(int $customerId, bool $onlyRented = null): array;
 
+    /**
+     * Get Customer Book entries by given Book ID
+     *
+     * @param int $bookId
+     * @return array
+     */
+    public function getBookHistory(int $bookId): array;
+
 }

@@ -38,16 +38,25 @@ class BookActions extends Column
      */
     public function prepareDataSource(array $dataSource)
     {
+
         if (isset($dataSource['data']['items'])) {
             $storeId = $this->context->getFilterParam('store_id');
 
             foreach ($dataSource['data']['items'] as &$item) {
                 $item[$this->getData('name')]['edit'] = [
-                    'href'   => $this->urlBuilder->getUrl(
-                        'book_rental_list/index/edit',
-                        ['id' => $item['id'], 'store' => $storeId]
-                    ),
+                    'href'   => $this->urlBuilder->getUrl('book_rental_list/index/edit', [
+                        'id'    => $item['id'],
+                        'store' => $storeId,
+                    ]),
                     'label'  => __('Edit'),
+                    'hidden' => false,
+                ];
+                $item[$this->getData('name')]['history'] = [
+                    'href'   => $this->urlBuilder->getUrl('book_rental_list/index/history', [
+                        'id'    => $item['id'],
+                        'store' => $storeId,
+                    ]),
+                    'label'  => __('History'),
                     'hidden' => false,
                 ];
             }

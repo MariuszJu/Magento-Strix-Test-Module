@@ -5,16 +5,23 @@ namespace RockSolidSoftware\BookRental\Model\DataProvider;
 use Magento\Framework\App\RequestInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
-use RockSolidSoftware\BookRental\Model\ResourceModel\Book\Collection;
 use RockSolidSoftware\BookRental\Model\ResourceModel\Book\CollectionFactory;
 
 class Book extends AbstractDataProvider
 {
 
-    /** @var BookRepositoryInterface */
+    /**
+     * Book Repository instance
+     *
+     * @var BookRepositoryInterface
+     */
     protected $repository;
 
-    /** @var RequestInterface */
+    /**
+     * Request instance to get ID from URL
+     *
+     * @var RequestInterface
+     */
     protected $request;
 
     /**

@@ -4,6 +4,7 @@ namespace RockSolidSoftware\BookRental\Helper;
 
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Tests\NamingConvention\true\mixed;
 
 class Config extends AbstractHelper
 {
@@ -13,13 +14,20 @@ class Config extends AbstractHelper
     /**
      * Get value of configuration item from Admin area
      *
-     * @param string $key
-     * @param null   $storeId
+     * @param string      $key
+     * @param string|null $storeId
+     * @param mixed       $default
      * @return mixed
      */
-    public function configKey(string $key, $storeId = null)
+    public function configKey(string $key, $default = null, string $storeId = null)
     {
-        return $this->scopeConfig->getValue($key, ScopeInterface::SCOPE_STORE, $storeId);
+        $value = $this->scopeConfig->getValue($key, ScopeInterface::SCOPE_STORE, $storeId);
+
+        if (is_null($value)) {
+            return is_callable($default) ? call_user_func($default) : $default;
+        }
+
+        return $value;
     }
 
 }

@@ -13,7 +13,11 @@ use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy
 class Collection extends SearchResult
 {
 
-    /** @var BooksServiceInterface */
+    /**
+     * Books Service instance
+     *
+     * @var BooksServiceInterface
+     */
     private $booksService;
 
     /**

@@ -77,7 +77,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * Get Customer book entry by Book ID
+     * Get Customer book entry by Book ID, inject Customer data
      *
      * @throws \RuntimeException if there is no Customer Book entry for given Book ID
      * @param int $bookId
@@ -111,12 +111,36 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * Get Customer book entries by Customer ID
+     * Get Customer book entries for given Book ID, inject Customer data
+     *
+     * @param int $bookId
+     * @return array
+     */
+    public function getBookHistory(int $bookId): array
+    {
+        $collection = (clone $this->collection);
+        $collection->getSelect()
+            ->joinLeft(
+                ['customer' => 'customer_entity'],
+                'customer.entity_id = main_table.customer_id', [
+                    'customer_email'     => 'customer.email',
+                    'customer_firstname' => 'customer.firstname',
+                    'customer_lastname'  => 'customer.lastname',
+                ]
+            );
+
+        $collection->addFilter('book_id', $bookId);
+
+        return $collection->getItems();
+    }
+
+    /**
+     * Get Customer book entries by Customer ID, inject Customer data
      *
      * @param int       $customerId
      * @param bool|null $onlyRented
      * @return DataObject[]
-     */
+*/
     public function getByCustomerId(int $customerId, bool $onlyRented = null): array
     {
         $collection = clone $this->collection;

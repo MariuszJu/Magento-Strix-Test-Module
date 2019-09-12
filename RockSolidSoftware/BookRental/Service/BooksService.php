@@ -64,7 +64,7 @@ class BooksService implements BooksServiceInterface
     /**
      * Get Book by ID or slug
      *
-     * @throws \RuntimeException if invalid book parameter sent (neither valid integer nor string)
+     * @throws \RuntimeException if invalid book parameter sent (neither valid integer nor string) or Book was not found
      * @param mixed $book
      * @param bool  $injectLender
      * @return BookInterface
@@ -97,6 +97,7 @@ class BooksService implements BooksServiceInterface
     /**
      * Check weather given book is taken, Book ID or slug can be passed
      *
+     * @throws \RuntimeException if Book was not found
      * @param mixed $book
      * @return bool
      */
@@ -108,20 +109,35 @@ class BooksService implements BooksServiceInterface
     /**
      * Get Customer Book entry for given noo, Book ID or slug can be passed
      *
+     * @throws \RuntimeException if given Book was not found
      * @param mixed $book
      * @return CustomerBookInterface|null
      */
     public function getBookLender($book): ?CustomerBookInterface
     {
+        $book = $this->getBook($book, false);
+
         try {
-            $customerBook = $this->customerBookRepository->getByBookId(
-                $this->getBook($book, false)->getId()
-            );
-        } catch (\RuntimeException $e) {
+            $customerBook = $this->customerBookRepository->getByBookId($book->getId());
+        } catch (\Exception $e) {
             return null;
         }
 
         return $customerBook;
+    }
+
+    /**
+     * Get Customer Book entries for given Book
+     *
+     * @throws \RuntimeException if Book was not found
+     * @param mixed $book
+     * @return array
+     */
+    public function getBookHistory($book): array
+    {
+        return $this->customerBookRepository->getBookHistory(
+            is_numeric($book) ? $book : $this->getBook($book)->getId()
+        );
     }
 
 }

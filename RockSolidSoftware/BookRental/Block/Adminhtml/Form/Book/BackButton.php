@@ -8,6 +8,8 @@ class BackButton extends BaseButton implements ButtonProviderInterface
 {
 
     /**
+     * Get Back button configuration
+     *
      * @return array
      */
     public function getButtonData(): array
@@ -21,6 +23,8 @@ class BackButton extends BaseButton implements ButtonProviderInterface
     }
 
     /**
+     * Get Back button URL
+     *
      * @return string
      */
     public function getBackUrl(): string

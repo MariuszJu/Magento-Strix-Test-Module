@@ -18,6 +18,16 @@
         </arguments>
     </type>
 
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="book_rental_book_history_data_source" xsi:type="string">
+                    RockSolidSoftware\BookRental\Model\ResourceModel\CustomerBook\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
     <!--<type name="Magento\Framework\App\Http\Context">-->
         <!--<plugin name="book_rental_customer_cache_context_plugin"-->
                 <!--type="RockSolidSoftware\BookRental\Plugin\CustomerCacheContextPlugin"-->

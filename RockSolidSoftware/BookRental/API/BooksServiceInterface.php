@@ -51,4 +51,12 @@ interface BooksServiceInterface
      */
     public function getBookLender($book): ?CustomerBookInterface;
 
+    /**
+     * Get Customer Book entries for given Book
+     *
+     * @param mixed $book
+     * @return array
+     */
+    public function getBookHistory($book): array;
+
 }
