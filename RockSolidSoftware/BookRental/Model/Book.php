@@ -25,6 +25,8 @@ class Book extends AbstractModel implements BookInterface, IdentityInterface
     }
 
     /**
+     * Set or get CustomerBook instance
+     *
      * @param CustomerBookInterface|null $customerBook
      * @return CustomerBookInterface|null
      */
@@ -38,6 +40,8 @@ class Book extends AbstractModel implements BookInterface, IdentityInterface
     }
 
     /**
+     * Check whether book is already taken by any of user
+     *
      * @return bool
      */
     public function isTaken(): bool
@@ -46,6 +50,8 @@ class Book extends AbstractModel implements BookInterface, IdentityInterface
     }
 
     /**
+     * Get cache tags to refresh cached pages if necessary
+     *
      * @return array
      */
     public function getIdentities(): array

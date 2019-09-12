@@ -27,6 +27,8 @@ class CustomerMenu extends AbstractHelper
     }
 
     /**
+     * Returns label of link to rented books page in customer dropdown menu
+     *
      * @return Phrase|null
      */
     public function getCustomerBooksLinkLabel(): ?Phrase
@@ -35,6 +37,8 @@ class CustomerMenu extends AbstractHelper
     }
 
     /**
+     * Returns URL of link to rented books page in customer dropdown menu
+     *
      * @return string
      */
     public function getCustomerBooksLinkUrl(): string

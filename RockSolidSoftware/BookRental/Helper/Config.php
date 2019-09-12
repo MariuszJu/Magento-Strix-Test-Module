@@ -11,6 +11,8 @@ class Config extends AbstractHelper
     const CONFIG_MAX_BOOKS = 'book_rental/book_rental_general/book_rental_max_books';
 
     /**
+     * Get value of configuration item from Admin area
+     *
      * @param string $key
      * @param null   $storeId
      * @return mixed

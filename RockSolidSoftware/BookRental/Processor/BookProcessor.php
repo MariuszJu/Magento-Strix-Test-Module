@@ -8,7 +8,11 @@ use RockSolidSoftware\BookRental\API\BookRepositoryInterface;
 class BookProcessor
 {
 
-    /** @var BookRepositoryInterface */
+    /**
+     * Book Repository instance
+     *
+     * @var BookRepositoryInterface
+     */
     private $bookRepository;
 
     /**
@@ -22,6 +26,8 @@ class BookProcessor
     }
 
     /**
+     * Create or updated book
+     *
      * @throws \RuntimeException
      * @throws \Exception
      * @param array $bookData
@@ -56,6 +62,8 @@ class BookProcessor
     }
 
     /**
+     * Delete book by its ID
+     *
      * @throws \RuntimeException
      * @param int $id
      */

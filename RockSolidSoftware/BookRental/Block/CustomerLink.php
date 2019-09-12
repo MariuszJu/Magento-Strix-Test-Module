@@ -8,6 +8,8 @@ class CustomerLink extends Link
 {
 
     /**
+     * Render link in customer dropdown menu, it returns pure HTML code
+     *
      * @return string
      */
     protected function _toHtml(): string

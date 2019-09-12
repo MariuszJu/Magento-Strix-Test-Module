@@ -40,7 +40,9 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
-     * @throws \Exception
+     * Create book (if not exists) or save (if exists)
+     *
+     * @throws \Exception if saving process fails
      * @param array|BookInterface $entity
      * @return int
      */
@@ -56,7 +58,9 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Get book by ID
+     *
+     * @throws \RuntimeException if there is no Book with given ID
      * @param int $id
      * @return EntityInterface
      */
@@ -73,7 +77,9 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Get book by its slug
+     *
+     * @throws \RuntimeException if there is no Book with given slug
      * @param string $slug
      * @return BookInterface
      */
@@ -90,6 +96,8 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Get all books
+     *
      * @return DataObject[]
      */
     public function all(): array
@@ -100,6 +108,8 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Get books with pagination
+     *
      * @param int        $page
      * @param int        $perPage
      * @param array|null $order
@@ -135,6 +145,8 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Get books count
+     *
      * @return int
      */
     public function getEntitiesCount(): int
@@ -143,6 +155,8 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Get last inserted book (ordering by ID)
+     *
      * @return BookInterface|null
      */
     public function last(): ?EntityInterface
@@ -153,7 +167,9 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Delete provided book
+     *
+     * @throws \RuntimeException if deleting process fails
      * @param EntityInterface $entity
      * @return bool
      */
@@ -169,7 +185,9 @@ class BookRepository implements BookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Deleted book by its ID
+     *
+     * @throws \RuntimeException if deleting process fails
      * @param int $id
      * @return bool
      */

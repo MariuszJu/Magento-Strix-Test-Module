@@ -12,16 +12,32 @@ use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 class Book extends Action
 {
 
-    /** @var CustomerServiceInterface */
-    private $customerService;
-
-    /** @var BooksServiceInterface */
-    private $booksService;
-
-    /** @var PageFactory */
+    /**
+     * PageFactory to create static page
+     *
+     * @var PageFactory
+     */
     private $pageFactory;
 
-    /** @var UrlInterface */
+    /**
+     * Customer Service instance
+     *
+     * @var CustomerServiceInterface
+     */
+    private $customerService;
+
+    /**
+     * Books Service instance
+     *
+     * @var BooksServiceInterface
+     */
+    private $booksService;
+
+    /**
+     * URL interface to generate URL's
+     *
+     * @var UrlInterface
+     */
     private $url;
 
     /**
@@ -45,6 +61,8 @@ class Book extends Action
     }
 
     /**
+     * Check whether customer is authenticated and check whether customer owns indicated book
+     * 
      * @return mixed
      */
     public function execute()
@@ -66,10 +84,6 @@ class Book extends Action
                 $e instanceof \RuntimeException
                     ? $e->getMessage() : __('Unexpected error occured. Please try again')
             );
-            
-            echo '<pre>';
-            print_r($e->getMessage());
-            echo '</pre>'; die('');
 
             return $this->_redirect('*/*/index');
         }

@@ -56,6 +56,8 @@ class Edit extends Action
     }
 
     /**
+     * Check whether admin has appropriate permissions to access this action
+     *
      * @return bool
      */
     protected function _isAllowed(): bool

@@ -13,10 +13,13 @@ final class Inflector
     private function __wakeup() {}
 
     /**
+     * Create slug for given string: remove all non-alphanumeric signs, change spaces into given char
+     *
      * @param string $string
+     * @param string $replaceWith
      * @return string
      */
-    public static function createSlug(string $string): string
+    public static function createSlug(string $string, string $replaceWith = '-'): string
     {
         if (empty($string)) {
             return '';
@@ -43,11 +46,11 @@ final class Inflector
             'Ń' => 'n',
         ]);
 
-        //$slug = preg_replace('/[^[:alnum:]]/u', '-', $slug);
-        $slug = preg_replace('/[^A-Za-z0-9]/', '-', $slug);
-        $slug = str_replace(['---', '--'], '-', $slug);
+        //$slug = preg_replace('/[^[:alnum:]]/u', $replaceWith, $slug);
+        $slug = preg_replace('/[^A-Za-z0-9]/', $replaceWith, $slug);
+        $slug = str_replace(['---', '--'], $replaceWith, $slug);
 
-        if (in_array($slug[strlen($slug) - 1], ['-', '.', ',', ' '])) {
+        if (in_array($slug[strlen($slug) - 1], ['-', '.', ',', ' ', $replaceWith])) {
             $slug = substr($slug, 0, strlen($slug) - 1);
         }
 
@@ -55,6 +58,8 @@ final class Inflector
     }
 
     /**
+     * Generated (pseudo)random string
+     *
      * @param int  $length
      * @param bool $onlyLetters
      * @return string
@@ -66,6 +71,8 @@ final class Inflector
     }
 
     /**
+     * Generated (pseudo)random number
+     *
      * @param int $length
      * @return string
      */
@@ -76,6 +83,8 @@ final class Inflector
     }
 
     /**
+     * Create normalized name, especially for files
+     *
      * $mode = 1 - add random prefix (before) fileName, 2 - add random postfix (after) fileName
      *
      * @param string $name
@@ -108,6 +117,8 @@ final class Inflector
     }
 
     /**
+     * Change given string to Camel Case notation
+     *
      * @param string $string
      * @param bool   $capitalizeFirstCharacter
      * @return string
@@ -128,6 +139,8 @@ final class Inflector
     }
 
     /**
+     * Change given string to underscore notaction
+     *
      * @param string $input
      * @param bool   $capitalizeFirstCharacter
      * @return string
@@ -180,6 +193,8 @@ final class Inflector
     }
 
     /**
+     * Split given string by new line character into array
+     *
      * @param string $content
      * @return array
      */
@@ -189,6 +204,8 @@ final class Inflector
     }
 
     /**
+     * Remove last char if it equals to the given value
+     *
      * @param string $string
      * @param string $char
      * @return string
@@ -203,6 +220,8 @@ final class Inflector
     }
 
     /**
+     * Encrypt given string using encryption key
+     *
      * @param string $plainText
      * @return string|null
      */
@@ -217,6 +236,8 @@ final class Inflector
     }
 
     /**
+     * Decrypt encrypted string using encryption key
+     *
      * @param string $encrypted
      * @return string|null
      */

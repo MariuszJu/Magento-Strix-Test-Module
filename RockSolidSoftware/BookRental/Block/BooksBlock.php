@@ -12,19 +12,39 @@ use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 class BooksBlock extends Template implements IdentityInterface
 {
 
-    /** @var array */
+    /**
+     * Cached books, to prevent retrieving them multiple times
+     *
+     * @var array
+     */
     protected $books = [];
 
-    /** @var array */
+    /**
+     * Default order for books list
+     *
+     * @var array
+     */
     protected $defaultOrder = ['main_table.id' => 'DESC'];
 
-    /** @var int */
+    /**
+     * How many books will be shown per page
+     *
+     * @var int
+     */
     protected $perPage = 10;
 
-    /** @var BooksServiceInterface */
+    /**
+     * Books Service instance
+     *
+     * @var BooksServiceInterface
+     */
     protected $booksService;
 
-    /** @var CustomerServiceInterface */
+    /**
+     * Customer Service instance
+     *
+     * @var CustomerServiceInterface
+     */
     protected $customerService;
 
     /**
@@ -43,6 +63,8 @@ class BooksBlock extends Template implements IdentityInterface
     }
 
     /**
+     * Get books list with pagination
+     *
      * @param int        $page
      * @param int|null   $perPage
      * @param array|null $order
@@ -74,31 +96,8 @@ class BooksBlock extends Template implements IdentityInterface
     }
 
     /**
-     * @param string $slug
-     * @return BookInterface
-     */
-    public function getBook(string $slug)
-    {
-        return $this->booksService->getBook($slug, true);
-    }
-
-    /**
-     * @return bool
-     */
-    public function canCustomerRentBook(): bool
-    {
-        return $this->customerService->canCustomerRentBook();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function customerBooks()
-    {
-        return $this->customerService->customerBooks();
-    }
-
-    /**
+     * Get cache tags to refresh page if necessary
+     *
      * @return array
      */
     public function getIdentities(): array

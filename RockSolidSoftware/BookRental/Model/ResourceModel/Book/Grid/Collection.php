@@ -37,6 +37,8 @@ class Collection extends SearchResult
     }
 
     /**
+     * Get data for books list in Admin area grid
+     *
      * @return array
      */
     public function getItems(): array

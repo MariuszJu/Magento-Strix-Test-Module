@@ -12,13 +12,25 @@ use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 class BookBlock extends Template implements IdentityInterface
 {
 
-    /** @var BookInterface[] */
+    /**
+     * Cached books, to prevent retrieving same book multiple times
+     *
+     * @var BookInterface[]
+     */
     protected $books = [];
 
-    /** @var BooksServiceInterface */
+    /**
+     * Book Service instance
+     *
+     * @var BooksServiceInterface
+     */
     protected $booksService;
 
-    /** @var CustomerServiceInterface */
+    /**
+     * Customer Service instance
+     *
+     * @var CustomerServiceInterface
+     */
     protected $customerService;
 
     /**
@@ -37,6 +49,8 @@ class BookBlock extends Template implements IdentityInterface
     }
 
     /**
+     * Get Book model instance by book slug
+     *
      * @param string $slug
      * @return BookInterface
      */
@@ -52,6 +66,8 @@ class BookBlock extends Template implements IdentityInterface
     }
 
     /**
+     * Check whether the currently logged in customer can rent book (whether they reach limit)
+     *
      * @return bool
      */
     public function canCustomerRentBook(): bool
@@ -60,6 +76,8 @@ class BookBlock extends Template implements IdentityInterface
     }
 
     /**
+     * Get cache tags to refresh page if necessary
+     *
      * @return array
      */
     public function getIdentities(): array

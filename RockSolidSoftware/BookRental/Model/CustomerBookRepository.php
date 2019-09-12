@@ -40,7 +40,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * @throws \Exception
+     * Create customer book entry (if not exists) or save (if exists)
+     *
+     * @throws \Exception if saving process fails
      * @param array|BookInterface $entity
      * @return int
      */
@@ -56,6 +58,8 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * Get customer book entry by ID if there is no Customer Book entry for given ID
+     *
      * @throws \RuntimeException
      * @param int $id
      * @return EntityInterface
@@ -73,7 +77,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Get Customer book entry by Book ID
+     *
+     * @throws \RuntimeException if there is no Customer Book entry for given Book ID
      * @param int $bookId
      * @return CustomerBookInterface
      */
@@ -105,6 +111,8 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * Get Customer book entries by Customer ID
+     *
      * @param int       $customerId
      * @param bool|null $onlyRented
      * @return DataObject[]
@@ -133,6 +141,8 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * Get all customer book entries
+     *
      * @return DataObject[]
      */
     public function all(): array
@@ -141,6 +151,8 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * Get customer books entries count
+     *
      * @return int
      */
     public function getEntitiesCount(): int
@@ -149,6 +161,8 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
+     * Get last inserted customer book entry (ordering by ID)
+     *
      * @return BookInterface|null
      */
     public function last(): ?EntityInterface
@@ -159,7 +173,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Delete customer book entry
+     *
+     * @throws \RuntimeException if deleting process fails
      * @param EntityInterface $entity
      * @return bool
      */
@@ -175,7 +191,9 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Delete customer book entry by ID
+     *
+     * @throws \RuntimeException if deleting process fails
      * @param int $id
      * @return bool
      */

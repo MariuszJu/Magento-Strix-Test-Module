@@ -41,6 +41,8 @@ class Book extends AbstractDataProvider
     }
 
     /**
+     * Provide data for Admin area create/edit book form
+     *
      * @return array
      */
     public function getData()

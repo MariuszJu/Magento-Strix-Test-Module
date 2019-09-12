@@ -34,6 +34,8 @@ class CustomerCacheContextPlugin
     }
 
     /**
+     * Set custom context variable to distinguish cached pages for logged in customers
+     *
      * @param Context $context
      */
     public function beforeGetVaryString(Context $context)

@@ -31,7 +31,7 @@ class BookActions extends Column
     }
 
     /**
-     * Prepare Data Source
+     * Prepare Data Source for Edit button in Admin grid
      *
      * @param array $dataSource
      * @return array

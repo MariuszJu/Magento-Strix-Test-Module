@@ -21,6 +21,8 @@ class CustomerBook extends AbstractModel implements CustomerBookInterface, Ident
     }
 
     /**
+     * Get cache tags to refresh cached pages if necessary
+     *
      * @return array
      */
     public function getIdentities(): array

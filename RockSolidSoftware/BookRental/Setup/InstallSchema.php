@@ -13,6 +13,8 @@ class InstallSchema implements InstallSchemaInterface
 {
 
     /**
+     * Perform installation
+     *
      * @throws \Zend_Db_Exception
      * @param SchemaSetupInterface   $setup
      * @param ModuleContextInterface $context
@@ -29,6 +31,8 @@ class InstallSchema implements InstallSchemaInterface
     }
 
     /**
+     * Create table for Books
+     *
      * @throws \Zend_Db_Exception
      * @param SchemaSetupInterface $setup
      * @param AdapterInterface     $connection
@@ -62,6 +66,8 @@ class InstallSchema implements InstallSchemaInterface
     }
 
     /**
+     * Create table for Customer Book entries
+     *
      * @throws \Zend_Db_Exception
      * @param SchemaSetupInterface $setup
      * @param AdapterInterface     $connection

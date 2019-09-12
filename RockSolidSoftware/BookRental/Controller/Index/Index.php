@@ -9,7 +9,11 @@ use Magento\Framework\View\Result\PageFactory;
 class Index extends Action
 {
 
-    /**@var PageFactory */
+    /**
+     * PageFactory to create static page
+     *
+     * @var PageFactory
+     */
     private $pageFactory;
 
     /**

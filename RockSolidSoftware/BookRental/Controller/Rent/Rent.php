@@ -11,13 +11,25 @@ use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 class Rent extends Action
 {
 
-    /** @var CustomerServiceInterface */
+    /**
+     * Customer Service instance
+     *
+     * @var CustomerServiceInterface
+     */
     private $customerService;
 
-    /** @var BooksServiceInterface */
+    /**
+     * Books Service instance
+     *
+     * @var BooksServiceInterface
+     */
     private $booksService;
 
-    /** @var UrlInterface */
+    /**
+     * URL interface to generate URL's
+     *
+     * @var UrlInterface
+     */
     private $url;
 
     /**
@@ -39,6 +51,8 @@ class Rent extends Action
     }
 
     /**
+     * Check whether customer is authenticated and rent indicated book
+     *
      * @return mixed
      */
     public function execute()

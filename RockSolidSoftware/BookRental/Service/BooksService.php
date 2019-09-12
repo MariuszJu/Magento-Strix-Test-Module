@@ -12,10 +12,18 @@ use RockSolidSoftware\BookRental\API\CustomerBookRepositoryInterface;
 class BooksService implements BooksServiceInterface
 {
 
-    /** @var BookRepositoryInterface */
+    /**
+     * Book Repository instance
+     *
+     * @var BookRepositoryInterface
+     */
     protected $bookRepository;
 
-    /** @var CustomerBookRepositoryInterface */
+    /**
+     * Customer Book Repository instance
+     *
+     * @var CustomerBookRepositoryInterface
+     */
     private $customerBookRepository;
 
     /**
@@ -31,6 +39,8 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
+     * Get Books with pagination
+     *
      * @param int        $page
      * @param int        $perPage
      * @param array|null $order
@@ -42,6 +52,8 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
+     * Get Books count
+     *
      * @return int
      */
     public function getBooksCount(): int
@@ -50,7 +62,9 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Get Book by ID or slug
+     *
+     * @throws \RuntimeException if invalid book parameter sent (neither valid integer nor string)
      * @param mixed $book
      * @param bool  $injectLender
      * @return BookInterface
@@ -81,7 +95,8 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Check weather given book is taken, Book ID or slug can be passed
+     *
      * @param mixed $book
      * @return bool
      */
@@ -91,7 +106,8 @@ class BooksService implements BooksServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Get Customer Book entry for given noo, Book ID or slug can be passed
+     *
      * @param mixed $book
      * @return CustomerBookInterface|null
      */

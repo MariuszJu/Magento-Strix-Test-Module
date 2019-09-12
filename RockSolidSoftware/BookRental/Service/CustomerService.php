@@ -14,13 +14,25 @@ use RockSolidSoftware\BookRental\API\CustomerBookRepositoryInterface;
 class CustomerService implements CustomerServiceInterface
 {
 
-    /** @var CustomerBookRepositoryInterface */
+    /**
+     * Customer Book Repository instance
+     *
+     * @var CustomerBookRepositoryInterface
+     */
     private $customerBookRepository;
 
-    /** @var SessionFactory */
+    /**
+     * Customer Session Factory instance
+     *
+     * @var SessionFactory
+     */
     private $customerSession;
 
-    /** @var Config */
+    /**
+     * Config helper instance
+     *
+     * @var Config
+     */
     private $config;
 
     /**
@@ -39,6 +51,8 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
+     * Check whether user is authenticated already - if is not redirect him to given URL
+     *
      * @param string|null $afterAuthUrl
      */
     public function authenticateCustomer(string $afterAuthUrl = null)
@@ -51,6 +65,8 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
+     * Check whether customer is authenticated
+     *
      * @return bool
      */
     public function isCustomerLoggedIn(): bool
@@ -59,6 +75,8 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
+     * Get customer ID (if it is authenticated)
+     *
      * @return int|null
      */
     public function customerId(): ?int
@@ -67,7 +85,9 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Check whether given customer can rent a book
+     *
+     * @throws \RuntimeException if customer is not authenticated
      * @param int|null $customerId
      * @return bool
      */
@@ -88,7 +108,9 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * Rent a book by customer
+     *
+     * @throws \RuntimeException if customer is not authenticated or can't rent a book (reached limit)
      * @param BookInterface $book
      * @param int|null      $customerId
      */
@@ -118,7 +140,7 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
-     * @throws \RuntimeException
+     * @throws \RuntimeException if customer is not authenticated or does not own given book
      * @param BookInterface $book
      * @param int|null      $customerId
      */
@@ -143,6 +165,9 @@ class CustomerService implements CustomerServiceInterface
     }
 
     /**
+     * Get rented book for given customer
+     *
+     * @throws \RuntimeException if customer is not authenticated
      * @param int|null $customerId
      * @return CustomerBookInterface[]
      */
@@ -150,10 +175,16 @@ class CustomerService implements CustomerServiceInterface
     {
         $customerId = empty($customerId) ? $this->customerId() : $customerId;
 
+        if (empty($customerId)) {
+            throw new \RuntimeException(__('No customer is logged in'));
+        }
+
         return $this->customerBookRepository->getByCustomerId($customerId, true);
     }
 
     /**
+     * Get customer session instance
+     *
      * @return Session
      */
     private function customerSession(): Session

@@ -5,23 +5,31 @@ namespace RockSolidSoftware\BookRental\Controller\Rent;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\View\Result\PageFactory;
 use RockSolidSoftware\BookRental\API\BooksServiceInterface;
 use RockSolidSoftware\BookRental\API\CustomerServiceInterface;
 
 class ReturnBook extends Action
 {
 
-    /** @var CustomerServiceInterface */
+    /**
+     * Customer Service instance
+     *
+     * @var CustomerServiceInterface
+     */
     private $customerService;
 
-    /** @var BooksServiceInterface */
+    /**
+     * Books Service instance
+     *
+     * @var BooksServiceInterface
+     */
     private $booksService;
 
-    /** @var PageFactory */
-    private $pageFactory;
-
-    /** @var UrlInterface */
+    /**
+     * URL interface to generate URL's
+     *
+     * @var UrlInterface
+     */
     private $url;
 
     /**
@@ -43,6 +51,8 @@ class ReturnBook extends Action
     }
 
     /**
+     * Check whether customer is authenticated and return indicated book
+     *
      * @return mixed
      */
     public function execute()
