@@ -2,7 +2,7 @@
 
 /** @var $block \RockSolidSoftware\BookRental\Block\BooksBlock */
 
-$books = $block->getBooks($block->getRequest()->getParam('page', 1));
+$books = $block->getBooks((int) $block->getRequest()->getParam('page', 1));
 
 ?>
 

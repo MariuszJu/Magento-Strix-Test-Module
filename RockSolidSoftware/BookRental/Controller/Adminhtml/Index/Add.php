@@ -5,11 +5,15 @@ namespace RockSolidSoftware\BookRental\Controller\Adminhtml\Index;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use RockSolidSoftware\BookRental\Helper\Acl;
+use Magento\Framework\View\Result\PageFactory;
 use RockSolidSoftware\BookRental\Processor\BookProcessor;
 use RockSolidSoftware\BookRental\Processor\BookProcessorFactory;
 
 class Add extends Action
 {
+
+    /**@var PageFactory */
+    private $pageFactory;
 
     /** @var BookProcessor */
     private $processor;
@@ -19,9 +23,11 @@ class Add extends Action
      *
      * @param Context              $context
      * @param BookProcessorFactory $bookProcessorFactory
+     * @param PageFactory          $pageFactory
      */
-    public function __construct(Context $context, BookProcessorFactory $bookProcessorFactory)
+    public function __construct(Context $context, PageFactory $pageFactory, BookProcessorFactory $bookProcessorFactory)
     {
+        $this->pageFactory = $pageFactory;
         $this->processor = $bookProcessorFactory->create();
 
         parent::__construct($context);
@@ -35,6 +41,9 @@ class Add extends Action
     {
         $this->_view->loadLayout();
         $this->_view->renderLayout();
+
+        $resultPage = $this->pageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__('Add New Book'));
 
         if (!empty($post = $this->getRequest()->getParam('book'))) {
             try {

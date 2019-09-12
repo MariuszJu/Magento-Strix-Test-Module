@@ -56,7 +56,7 @@ class Book extends AbstractDataProvider
     {
         $data = [];
 
-        $id = $this->request->getParam('id');
+        $id = (int) $this->request->getParam('id');
 
         if (!empty($post = $this->request->getPostValue())) {
             $data[$id]['book'] = $post['book'] ?? [];

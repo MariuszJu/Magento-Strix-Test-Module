@@ -2,7 +2,7 @@
 
 /** @var $block \RockSolidSoftware\BookRental\Block\BookBlock */
 
-$book = $block->getBook($block->getRequest()->getParam('slug'));
+$book = $block->getBook(strip_tags(addslashes($block->getRequest()->getParam('slug'))));
 
 ?>
 
@@ -13,6 +13,9 @@ $book = $block->getBook($block->getRequest()->getParam('slug'));
 
         <div class='book-status'>
             <div class='book-status-free'>
+                <span><?= __('Rented since') ?>: <?= (new \DateTime($book->customerBook()->getCreatedAt()))->format('Y-m-d H:i') ?></span>
+
+                <br/>
                 <a href='<?= $block->getUrl('book_rental/rent/returnBook', [
                     'slug' => $book->getSlug(),
                 ]) ?>'><?= __('Return this book') ?></a>
