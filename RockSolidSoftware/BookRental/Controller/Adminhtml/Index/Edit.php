@@ -45,12 +45,22 @@ class Edit extends Action
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(__('Edit Book'));
 
+        try {
+            $book = $this->processor->checkBook((int) $this->getRequest()->getParam('id'));
+        } catch (\Throwable $e) {
+            $this->messageManager->addErrorMessage(
+                $e instanceof \RuntimeException ? $e->getMessage() : __('Unexpected error occured')
+            );
+
+            return $this->_redirect('*/*/index');
+        }
+
         if (!empty($post = $this->getRequest()->getParam('book'))) {
             try {
                 $this->processor->save($post);
             } catch (\Throwable $e) {
                 $this->messageManager->addErrorMessage(
-                    $e instanceof \RuntimeException ? $e->getMessage() : 'Unexpected error occured'
+                    $e instanceof \RuntimeException ? $e->getMessage() : __('Unexpected error occured')
                 );
 
                 return $this->_redirect('*/*/edit/id/', [

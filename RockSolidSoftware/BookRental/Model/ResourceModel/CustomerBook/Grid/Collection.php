@@ -51,7 +51,7 @@ class Collection extends SearchResult
         $this->booksService = $booksService;
         
         if (!empty($id = $this->request->getParam('id'))) {
-            $_SESSION['book_history_listing_book_id'] = $id;
+            $_SESSION['book_history_listing_book_id'] = (int) $id;
         }
     }
 
@@ -72,7 +72,7 @@ class Collection extends SearchResult
                 ]
             );
 
-        $bookId = $_SESSION['book_history_listing_book_id'] ?? $this->request->getParam('id');
+        $bookId = $_SESSION['book_history_listing_book_id'] ?? (int) $this->request->getParam('id');
 
         $this->addFilter('book_id', $bookId);
 

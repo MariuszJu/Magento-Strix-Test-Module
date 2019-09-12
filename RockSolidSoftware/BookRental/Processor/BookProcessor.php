@@ -72,4 +72,15 @@ class BookProcessor
         $this->bookRepository->deleteById($id);
     }
 
+    /**
+     * Check whether Book with given ID exists
+     *
+     * @throws \RuntimeException if book was not found
+     * @param int $id
+     */
+    public function checkBook(int $id)
+    {
+        $this->bookRepository->getById($id);
+    }
+
 }

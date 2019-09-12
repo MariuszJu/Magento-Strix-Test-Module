@@ -70,7 +70,7 @@ class CustomerBookRepository implements CustomerBookRepositoryInterface
         $this->resource->load($entity, $id, 'id');
 
         if (!$entity->getId()) {
-            throw new \RuntimeException(sprintf('Book with the %s ID does not exist', $id));
+            throw new \RuntimeException(sprintf('Book with ID %s does not exist', $id));
         }
 
         return $entity;
